@@ -1,0 +1,22 @@
+svg {
+  font: 10px sans-serif;
+}
+.caption {
+  font-weight: bold;
+}
+.key path {
+  display: none;
+}
+.key line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.county-border {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .3;
+}
+input{
+  position:relative;
+  top: 700px;
+}
