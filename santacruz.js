@@ -88,6 +88,7 @@ function refresh() {
     console.log(sc);
     if (error) throw error;
     var tracts = topojson.feature(sc, sc.objects.sctracts);
+    var tooltip;  
     // Clip tracts to land.
     svg.append("defs").append("clipPath")
         .attr("id", "clip-land")
@@ -102,9 +103,27 @@ function refresh() {
       .selectAll("path")
         .data(d3.nest()
           .key(function(d) { return color(d.properties.population / d.properties.area * 2.58999e6); })
-          .entries(tracts.features.filter(function(d) { return d.properties.area; })))
+          .entries(tracts.features.filter(function(d) { return d.properties.area; }))             
+        )
       .enter().append("path")
         .style("fill", function(d) { return d.key; })
+            .on("mouseover", function(d){
+                console.log(d);
+                var toolTipLabel = '<br/> Population: '+ d.values[0].properties.population;
+                tooltip = d3.select("body")
+                    .append("div")
+                    .style("position", "absolute")
+                    .style("z-index", "10")
+                    .style("visibility", "hidden")
+                    .html(toolTipLabel);   
+                return tooltip.style("visibility", "visible");
+            })
+            .on("mousemove", function(d){
+                return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+            })
+            .on("mouseout", function(d){
+                return tooltip.style("visibility", "hidden")
+            })
         .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); });
 
     // Draw county borders.
