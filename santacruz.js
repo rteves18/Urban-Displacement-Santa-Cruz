@@ -108,8 +108,11 @@ function refresh() {
       .enter().append("path")
         .style("fill", function(d) { return d.key; })
             .on("mouseover", function(d){
-                console.log(d);
-                var toolTipLabel = '<br/> Population: '+ d.values[0].properties.population;
+                var totalPopulationInGroup = 0;
+                for (var i=0; i<d.values.length; i++) {
+                    totalPopulationInGroup+=d.values[i].properties.population;
+                }
+                var toolTipLabel = '<br/> Population: '+ totalPopulationInGroup;
                 tooltip = d3.select("body")
                     .append("div")
                     .style("position", "absolute")
