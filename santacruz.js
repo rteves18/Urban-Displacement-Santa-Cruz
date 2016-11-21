@@ -96,38 +96,42 @@ function refresh() {
         .datum(topojson.feature(sc, sc.objects.sctracts))
         .attr("d", path);
 
+    // Individual tracts for tool tip.
     // Group tracts by color for faster rendering.
-    svg.append("g")
+      var valuesMap = {};
+      svg.append("g")
         .attr("class", "tract")
         .attr("clip-path", "url(#clip-land)")
       .selectAll("path")
         .data(d3.nest()
-          .key(function(d) { return color(d.properties.population / d.properties.area * 2.58999e6); })
-          .entries(tracts.features.filter(function(d) { return d.properties.area; }))             
+          .key(function(d) {
+            valuesMap[d.properties.population]=color(d.properties.population / d.properties.area * 2.58999e6);
+            return d.properties.population; 
+          })
+          .entries(tracts.features.filter(function(d) {
+            return d.properties.area; 
+          }))             
         )
       .enter().append("path")
-        .style("fill", function(d) { return d.key; })
-            .on("mouseover", function(d){
-                var totalPopulationInGroup = 0;
-                for (var i=0; i<d.values.length; i++) {
-                    totalPopulationInGroup+=d.values[i].properties.population;
-                }
-                var toolTipLabel = '<br/> Population: '+ totalPopulationInGroup;
-                tooltip = d3.select("body")
-                    .append("div")
-                    .style("position", "absolute")
-                    .style("z-index", "10")
-                    .style("visibility", "hidden")
-                    .html(toolTipLabel);   
-                return tooltip.style("visibility", "visible");
-            })
-            .on("mousemove", function(d){
-                return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
-            })
-            .on("mouseout", function(d){
-                return tooltip.style("visibility", "hidden")
-            })
-        .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); });
+        .style("fill", function(d) { return valuesMap[d.key]; })
+        .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); })
+        .on("mouseover", function(d){
+            var totalPopulationInGroup = 0;
+            var toolTipLabel = '<br/> Population: '+ d.key;
+            tooltip = d3.select("body")
+                .append("div")
+                .style("position", "absolute")
+                .style("z-index", "10")
+                .style("visibility", "hidden")
+                .html(toolTipLabel);   
+            return tooltip.style("visibility", "visible");
+        })
+        .on("mousemove", function(d){
+            return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+        })
+        .on("mouseout", function(d){
+            return tooltip.style("visibility", "hidden")
+        });
 
     // Draw county borders.
     //Toggle show boundary
