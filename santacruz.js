@@ -1,7 +1,7 @@
 //Toggle color and boundary variables
 var changeColor = false;
 var showBoundary = true;
-var jsonArray = ['santa_cruz.json'];
+var jsonArray = ['santa_cruz.json', 'santa_cruz_fakeData.json'];
 var jsonArrayCounter = 0;
 
 var width = 2500,
