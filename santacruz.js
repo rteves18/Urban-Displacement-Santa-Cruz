@@ -4,10 +4,17 @@ var showBoundary = true;
 
 var width = 2500,
   height = 700;
+var scale0 = (width - 1) ;
 var formatNumber = d3.format(",d");
 var projection = d3.geo.albers()
   .scale(70000)
   .translate([24600, 1700]);
+
+var zoom = d3.behavior.zoom()
+    .translate([width / 2, height / 2])
+    .scale(scale0)
+    .scaleExtent([scale0, 8 * scale0])
+    .on("zoom", zoomed);
 
 var path = d3.geo.path()
   .projection(projection);
@@ -57,12 +64,15 @@ var xAxis = d3.svg.axis()
 var svg = d3.select("body").append("svg")
   .attr("width", width)
   .attr("height", height);
+var g;
+
+
 
 refresh(); //refresh map
 
 //Refresh Geomap function    
 function refresh() {
-  var g = svg.append("g")
+  g = svg.append("g")
     .attr("class", "key")
     .attr("transform", "translate(440,40)");
 
@@ -83,6 +93,10 @@ function refresh() {
     .attr("class", "caption")
     .attr("y", -6)
     .text("Population per square mile");
+    
+svg.call(zoom)
+   .call(zoom.event);
+    
 
   d3.json("santa_cruz.json", function(error, sc){
     console.log(sc);
@@ -142,6 +156,15 @@ function refresh() {
         .attr("d", path);
     }
   });
+}
+
+function zoomed() {
+  projection
+      .translate(zoom.translate())
+      .scale(zoom.scale());
+
+  svg.selectAll("path")
+       .attr("d", path);
 }
 
 d3.select(self.frameElement).style("height", height + "px");
