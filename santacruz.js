@@ -1,6 +1,8 @@
 //Toggle color and boundary variables
 var changeColor = false;
 var showBoundary = true;
+var jsonArray = ['santa_cruz.json', 'santa_cruz_fakeData.json'];
+var jsonArrayCounter = 0;
 
 var width = 2500,
   height = 700;
@@ -98,7 +100,7 @@ svg.call(zoom)
    .call(zoom.event);
     
 
-  d3.json("santa_cruz.json", function(error, sc){
+  d3.json(jsonArray[jsonArrayCounter], function(error, sc){
     console.log(sc);
     if (error) throw error;
     var tracts = topojson.feature(sc, sc.objects.sctracts);
@@ -158,6 +160,7 @@ svg.call(zoom)
   });
 }
 
+
 function zoomed() {
   projection
       .translate(zoom.translate())
@@ -165,6 +168,17 @@ function zoomed() {
 
   svg.selectAll("path")
        .attr("d", path);
+}
+// ** Update data section (Called from the onclick)
+function updateData() {
+    
+    jsonArrayCounter++;
+    if (jsonArrayCounter >= jsonArray.length) {
+        jsonArrayCounter=0;
+    }
+    refresh();
+
+
 }
 
 d3.select(self.frameElement).style("height", height + "px");
