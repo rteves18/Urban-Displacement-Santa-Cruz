@@ -6,7 +6,10 @@ function generic {
 		IDCOLUMN='1'
 		COLUMN='2'
 	    FRONT='6087'	
-		awk '{FS=",";split($'$IDCOLUMN',a,"\""); split($'$COLUMN',b,"\""); id=('0' '$FRONT'substr(a[2],9) "," b[2]); print id }' $x > tempCsv.txt 
+		awk '{FS=",";split($'$IDCOLUMN',a,"\""); split($'$COLUMN',b,"\""); id=('0' '$FRONT'substr(a[2],9) "," b[2]); print id }' $x > tempCsv.txt
+        awk  '!/^06087,/' tempCsv.txt > tempCsvFinal.txt
+		rm tempCsv.txt
+	    # sed -i '1s/^/1d2pop/' tempCsvFinal.txt	
 		# $ID | awk '{print $3}' | awk '{FS=":";print $2}' > tempTimeStamp.txt
 		# awk '{FS="admin kernel:";print}' $x | cut -f 5- -d ":" > tempNumber.txt
 		# awk '{print $0", "}' tempTimeStamp.txt > tempTimeStamp2.txt
