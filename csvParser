@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+function generic {
+	cd ./data/unparsed
+	for x in $(ls); do
+		IDCOLUMN=1
+		COLUMN=7	
+		ID=awk '{FS=",";print $$IDCOLUMN}' $x 
+		COLUMN=awk '{FS=",";print $$COLUMN}' $x
+	    echo ID;
+		echo COLUMN;	
+		# $ID | awk '{print $3}' | awk '{FS=":";print $2}' > tempTimeStamp.txt
+		# awk '{FS="admin kernel:";print}' $x | cut -f 5- -d ":" > tempNumber.txt
+		# awk '{print $0", "}' tempTimeStamp.txt > tempTimeStamp2.txt
+		# paste tempTimeStamp2.txt tempNumber.txt  | sed '1d' > $x.csv	
+	done
+	
+}
+
+generic
