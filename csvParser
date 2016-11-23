@@ -9,6 +9,8 @@ function generic {
 		awk '{FS=",";split($'$IDCOLUMN',a,"\""); split($'$COLUMN',b,"\""); id=('0' '$FRONT'substr(a[2],9) "," b[2]); print id }' $x > tempCsv.txt
         awk  '!/^06087,/' tempCsv.txt > tempCsvFinal.txt
 		rm tempCsv.txt
+		sed '1s/^/id2,pop/' tempCsvFinal.txt > tempCsv.txt
+		rm tempCsvFinal.txt
 	    # sed -i '1s/^/1d2pop/' tempCsvFinal.txt	
 		# $ID | awk '{print $3}' | awk '{FS=":";print $2}' > tempTimeStamp.txt
 		# awk '{FS="admin kernel:";print}' $x | cut -f 5- -d ":" > tempNumber.txt
