@@ -10,6 +10,7 @@ var scale0 = (width - 1) ;
 var formatNumber = d3.format(",d");
 var projection = d3.geo.albers()
   .scale(70000)
+  .rotate([96])
   .translate([24600, 1700]);
 
 var zoom = d3.behavior.zoom()
