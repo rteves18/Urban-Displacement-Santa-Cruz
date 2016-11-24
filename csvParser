@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# a bash script for parsing csvs to another csv
+# in this format:
+#
+# FIRSTLINE
+# id,column
+#
+# Description:
+# 
+# Based on IDCOLUMN and COLUMN, it  gets those two columns taking 
+# out quotes from both columns. The awk command uses ',' as a File separator, and takes 
+# out up until the  9th character of the IDCOLUMN. It adds '06087' to the beginning
+# of IDCOLUMN. It then strips all extraneous '06087,' (due to lines not following
+# the format expected). After of which the FIRSTLINE is inserted at the beginning 
+# of the line. It creates a few temp files that get removed and the final draft
+# is save in FINALDRAFT.
+#
+
+function generic { 
+	cd ./data/unparsed
+	for x in $(ls); do
+		IDCOLUMN='1'
+		COLUMN='2'
+	    FRONT='6087'	
+		FIRSTLINE='id2,pop'
+		FINALDRAFT=tempCsvFinal.txt
+		awk '{FS=",";split($'$IDCOLUMN',a,"\""); split($'$COLUMN',b,"\""); id=('0' '$FRONT'substr(a[2],9) "," b[2]); print id }' $x > tempCsv.txt
+        awk  '!/^06087,/' tempCsv.txt > tempCsvFinal.txt
+		rm tempCsv.txt
+		printf '%s\n' 0a $FIRSTLINE . x | ex $FINALDRAFT
+		# $ID | awk '{print $3}' | awk '{FS=":";print $2}' > tempTimeStamp.txt
+		# awk '{FS="admin kernel:";print}' $x | cut -f 5- -d ":" > tempNumber.txt
+		# awk '{print $0", "}' tempTimeStamp.txt > tempTimeStamp2.txt
+		# paste tempTimeStamp2.txt tempNumber.txt  | sed '1d' > $x.csv	
+	done
+	
+}
+
+generic
