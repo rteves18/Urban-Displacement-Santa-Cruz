@@ -7,34 +7,88 @@
 # id,column
 #
 # Description:
-# 
+#
+# Goes to each directory YEAR and parses one or multiple columns based on which directory it's in.
+# If it has multiple columns to parse it is store in COLUMNS and loops through each column and assigns it to COLUMN.
 # Based on IDCOLUMN and COLUMN, it  gets those two columns taking 
 # out quotes from both columns. The awk command uses ',' as a File separator, and takes 
 # out up until the  9th character of the IDCOLUMN. It adds '06087' to the beginning
 # of IDCOLUMN. It then strips all extraneous '06087,' (due to lines not following
 # the format expected). After of which the FIRSTLINE is inserted at the beginning 
 # of the line. It creates a few temp files that get removed and the final draft
-# is save in FINALDRAFT.
+# is save in FINALDRAFT which could be an array of names.
 #
 
-function generic { 
-	cd ./data/unparsed
+YEAR=''
+FACTOR=''
+function loopThroughYears {
+	for x in $(ls); do
+		echo "YEAR START: "$x
+		YEAR=$x
+		cd $x
+		loopThroughFactors
+		cd ..
+		echo "YEAR DONE: "$YEAR
+	done		
+}
+
+function loopThroughFactors {
+	IFS=$'\n'       # make newlines the only separator
+	for x in $(ls); do
+		echo "FACTOR START: "$x
+		COLUMNS=()
+		FACTOR=$x
+		cd $x
+		# we want from that factor
+		if [[ $FACTOR =~ "Housing Unit" ]]; then # Housing Unit
+			COLUMNS[0]='38'	
+		elif [[ $FACTOR =~ "Median Income" ]]; then # Median Income 5-Year estimate
+			COLUMNS[0]='35'
+			COLUMNS[1]='36'
+			COLUMNS[2]='37'
+			COLUMNS[3]='38'
+			COLUMNS[4]='39'
+			COLUMNS[5]='40'
+			COLUMNS[6]='41'
+			COLUMNS[7]='42'
+			COLUMNS[8]='43'
+		elif [[ $FACTOR =~ "Median Year" ]]; then # Median Year householder moved into unit
+			COLUMNS[0]='38'
+		elif [[ $FACTOR =~ "Price Asked" ]]; then # Price asked
+			COLUMNS[0]='38' 
+		elif [[ $FACTOR =~ "Rent Asked" ]]; then # rent Asked
+			COLUMNS[0]='38'
+		elif [[ $FACTOR =~ "Tenure" ]]; then # Tenure
+			COLUMNS[0]='38'
+		else # factor not read
+			cd ..
+			echo "FACTOR DONE: "$FACTOR
+			continue
+		fi 
+		rm *.txt
+		for i in "${COLUMNS[@]}"; do
+			generic	$i $FACTOR
+		done
+		cd ..
+		echo "FACTOR DONE: "$FACTOR
+	done		
+
+}
+
+function generic {
 	for x in $(ls); do
 		IDCOLUMN='1'
-		COLUMN='2'
+		COLUMN=$1
 	    FRONT='6087'	
 		FIRSTLINE='id2,pop'
-		FINALDRAFT=tempCsvFinal.txt
-		awk '{FS=",";split($'$IDCOLUMN',a,"\""); split($'$COLUMN',b,"\""); id=('0' '$FRONT'substr(a[2],9) "," b[2]); print id }' $x > tempCsv.txt
-        awk  '!/^06087,/' tempCsv.txt > tempCsvFinal.txt
+		FINALDRAFT=$2'.txt'
+		awk '{FS=",";split($'$IDCOLUMN',a,"\""); id=('0' '$FRONT'substr(a[2],9) "," $'$COLUMN'); if ( $36 ~ "Santa Cruz" ) {print id} }' $x > tempCsv.txt
+		awk  '!/^06087,/' tempCsv.txt > $FINALDRAFT
 		rm tempCsv.txt
 		printf '%s\n' 0a $FIRSTLINE . x | ex $FINALDRAFT
-		# $ID | awk '{print $3}' | awk '{FS=":";print $2}' > tempTimeStamp.txt
-		# awk '{FS="admin kernel:";print}' $x | cut -f 5- -d ":" > tempNumber.txt
-		# awk '{print $0", "}' tempTimeStamp.txt > tempTimeStamp2.txt
-		# paste tempTimeStamp2.txt tempNumber.txt  | sed '1d' > $x.csv	
 	done
 	
 }
 
-generic
+cd ./ud_final_data/ud_data_by_year
+loopThroughYears
