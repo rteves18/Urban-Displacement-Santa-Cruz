@@ -43,15 +43,15 @@ function loopThroughFactors {
 		if [[ $FACTOR =~ "Housing Unit" ]]; then # Housing Unit
 			COLUMNS[0]='38'	
 		elif [[ $FACTOR =~ "Median Income" ]]; then # Median Income 5-Year estimate
-			COLUMNS[0]='35'
-			COLUMNS[1]='36'
-			COLUMNS[2]='37'
-			COLUMNS[3]='38'
-			COLUMNS[4]='39'
-			COLUMNS[5]='40'
-			COLUMNS[6]='41'
-			COLUMNS[7]='42'
-			COLUMNS[8]='43'
+			COLUMNS[0]='38'
+			COLUMNS[1]='39'
+			COLUMNS[2]='40'
+			COLUMNS[3]='41'
+			COLUMNS[4]='42'
+			COLUMNS[5]='43'
+			COLUMNS[6]='44'
+			COLUMNS[7]='45'
+			COLUMNS[8]='46'
 		elif [[ $FACTOR =~ "Median Year" ]]; then # Median Year householder moved into unit
 			COLUMNS[0]='38'
 		elif [[ $FACTOR =~ "Price Asked" ]]; then # Price asked
@@ -67,7 +67,7 @@ function loopThroughFactors {
 		fi 
 		rm *.txt
 		for i in "${COLUMNS[@]}"; do
-			generic	$i $FACTOR
+			generic	$i $FACTOR"_"$i
 		done
 		cd ..
 		echo "FACTOR DONE: "$FACTOR
