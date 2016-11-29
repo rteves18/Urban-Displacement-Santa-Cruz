@@ -21,73 +21,123 @@
 
 YEAR=''
 FACTOR=''
+NUMBER_COLUMNS=()
+COLUMNS=()
+FIRSTLINE="id"
+
 function loopThroughYears {
-	for x in $(ls); do
+	for x in *; do
 		echo "YEAR START: "$x
 		YEAR=$x
 		cd $x
 		loopThroughFactors
-		cd ..
 		echo "YEAR DONE: "$YEAR
 	done		
 }
 
 function loopThroughFactors {
 	IFS=$'\n'       # make newlines the only separator
-	for x in $(ls); do
+	for x in *; do
 		echo "FACTOR START: "$x
-		COLUMNS=()
 		FACTOR=$x
 		cd $x
-		# we want from that factor
-		if [[ $FACTOR =~ "Housing Unit" ]]; then # Housing Unit
-			COLUMNS[0]='38'	
-		elif [[ $FACTOR =~ "Median Income" ]]; then # Median Income 5-Year estimate
-			COLUMNS[0]='38'
-			COLUMNS[1]='39'
-			COLUMNS[2]='40'
-			COLUMNS[3]='41'
-			COLUMNS[4]='42'
-			COLUMNS[5]='43'
-			COLUMNS[6]='44'
-			COLUMNS[7]='45'
-			COLUMNS[8]='46'
-		elif [[ $FACTOR =~ "Median Year" ]]; then # Median Year householder moved into unit
-			COLUMNS[0]='38'
-		elif [[ $FACTOR =~ "Price Asked" ]]; then # Price asked
-			COLUMNS[0]='38' 
-		elif [[ $FACTOR =~ "Rent Asked" ]]; then # rent Asked
-			COLUMNS[0]='38'
-		elif [[ $FACTOR =~ "Tenure" ]]; then # Tenure
-			COLUMNS[0]='38'
-		else # factor not read
-			cd ..
-			echo "FACTOR DONE: "$FACTOR
-			continue
-		fi 
 		rm *.txt
-		for i in "${COLUMNS[@]}"; do
-			generic	$i $FACTOR"_"$i
-		done
-		cd ..
+		generic $FACTOR
 		echo "FACTOR DONE: "$FACTOR
-	done		
+		FIRSTLINE="id"
+	done
+	cd ..
 
 }
 
-function generic {
-	for x in $(ls); do
-		IDCOLUMN='1'
-		COLUMN=$1
-	    FRONT='6087'	
-		FIRSTLINE='id2,pop'
-		FINALDRAFT=$2'.txt'
-		awk '{FS=",";split($'$IDCOLUMN',a,"\""); id=('0' '$FRONT'substr(a[2],9) "," $'$COLUMN'); if ( $36 ~ "Santa Cruz" ) {print id} }' $x > tempCsv.txt
-		awk  '!/^06087,/' tempCsv.txt > $FINALDRAFT
-		rm tempCsv.txt
-		printf '%s\n' 0a $FIRSTLINE . x | ex $FINALDRAFT
+function getColumnNumbers {
+	# loop through the string, if the string is found in a column find out
+	# the column's number and add it to the array, at the end return the array
+	# of column numbers
+	COUNTER=0
+	NUMBER_COLUMNS=()
+	for x in "${COLUMNS[@]}"; do
+		awk -F'|' ' FNR == 2{
+			printf("%s", $0);
+		}' $1 > temp.txt
+		line=$(head -n 1 temp.txt)
+		echo $line | awk '{ gsub (" ", "_", $0); gsub (",", ", ", $0); print}' > temp2.txt
+		awk '{
+			FS=",";
+			for(i=1;i<=NF;i++) {
+				# $i returning whole line
+				if( $i ~ "'$x'" || $i == "'$x'" ) {
+					printf("%d", i+3);
+					break;
+				}
+			}
+
+		}' temp2.txt > temp3.txt
+		awk '{
+			FS=",";
+			for(i=1;i<=NF;i++) {
+				# $i returning whole line
+				if( $i ~ "'$x'" || $i == "'$x'" ) {
+					printf("%s", $i);
+					break;
+				}
+			}
+
+		}' temp2.txt > temp4.txt
+		NUMBER_COLUMNS[$COUNTER]=$(head -n 1 temp3.txt)
+		if [ $COUNTER >= ${#NUMBER_COLUMNS[@]} ]; then
+			FIRSTLINE=$FIRSTLINE$(head -n 1 temp4.txt)
+		else
+			FIRSTLINE=$FIRSTLINE$(head -n 1 temp4.txt)","
+		fi
+		rm temp.txt temp2.txt temp3.txt temp4.txt
+		(( COUNTER++ ))	
 	done
-	
+}
+
+function generic {
+	for x in *; do # only one iteration
+		IDCOLUMN='1'
+		COLUMN=0
+	    FRONT='6087'
+		FACTOR=$1	
+		FINALDRAFT=$1'_'$COLUMN'.txt'
+		# we want from that factor
+		CSVFILE=$x
+		COLUMNS=()
+		if [[ $FACTOR =~ "Housing Unit" ]]; then # Housing Unit
+			COLUMNS=( 'Total' )
+			getColumnNumbers $x
+		elif [[ $FACTOR =~ "Median Income" ]]; then # Median Income 5-Year estimate
+			COLUMNS=( 'Median Household Income' )
+			getColumnNumbers $x
+		elif [[ $FACTOR =~ "Median Year" ]]; then # Median Year householder moved into unit
+			COLUMNS=( 'Total' )
+			getColumnNumbers $x
+		elif [[ $FACTOR =~ "Price Asked" ]]; then # Price asked
+			COLUMNS=( 'to' 'Total' )
+			getColumnNumbers $x
+		elif [[ $FACTOR =~ "Rent Asked" ]]; then # rent Asked
+			COLUMNS=( 'to' 'Total' )
+			getColumnNumbers $x
+		elif [[ $FACTOR =~ "Tenure" ]]; then # Tenure
+			COLUMNS=( 'Owner occupied' 'Renter occupied' 'Total' )
+			getColumnNumbers $x
+		else # factor not read
+			echo "FACTOR DONE: "$FACTOR
+			continue
+		fi
+
+		for i in "${NUMBER_COLUMNS[@]}"; do
+			awk '{FS=",";split($'$IDCOLUMN',a,"\""); id=('0' '$FRONT'substr(a[2],9) "," $'$i'); print id }' $CSVFILE > tempCsv.txt
+			cat tempCsv.txt
+			awk  '!/^06087,/' tempCsv.txt > $FINALDRAFT
+			sed 's/\"//' $FINALDRAFT > tempCsv.txt
+			printf '%s\n' 0a $FIRSTLINE . x | ex $FINALDRAFT
+			rm tempCsv.txt
+		done
+	done
+	cd ..
 }
 
 cd ./ud_final_data/ud_data_by_year
