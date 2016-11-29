@@ -67,7 +67,7 @@ function getColumnNumbers {
 			for(i=1;i<=NF;i++) {
 				# $i returning whole line
 				if( $i ~ "'$x'" || $i == "'$x'" ) {
-					printf("%d", i);
+					printf("%d", i+3);
 					break;
 				}
 			}
