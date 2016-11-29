@@ -67,7 +67,7 @@ function getColumnNumbers {
 			for(i=1;i<=NF;i++) {
 				# $i returning whole line
 				if( $i ~ "'$x'" || $i == "'$x'" ) {
-					printf("%d", i+3);
+					printf("%d", i+2);
 					break;
 				}
 			}
@@ -129,7 +129,7 @@ function generic {
 		fi
 
 		for i in "${NUMBER_COLUMNS[@]}"; do
-			awk '{FS=",";split($'$IDCOLUMN',a,"\""); id=('0' '$FRONT'substr(a[2],9) "," $'$i'); print id }' $CSVFILE > tempCsv.txt
+				awk '{FS=",";split($'$IDCOLUMN',a,"\""); id=('0' '$FRONT'substr(a[2],9) "," $'$i'); if ( $7 ~ "Santa Cruz" ) { print id } }' $CSVFILE > tempCsv.txt
 			cat tempCsv.txt
 			awk  '!/^06087,/' tempCsv.txt > $FINALDRAFT
 			sed 's/\"//' $FINALDRAFT > tempCsv.txt
