@@ -1,7 +1,8 @@
 //Toggle color and boundary variables
 var changeColor = false;
 var showBoundary = true;
-var jsonArray = ['santa_cruz.json', 'santa_cruz_fakeData.json'];
+var jsonArray = ['sc_pop.json', 'sc_housingunit09.json', 'sc_housingunit10.json', 'sc_housingunit11.json', 
+                 'sc_housingunit12.json', 'sc_housingunit13.json', 'sc_housingunit14.json'];
 var jsonArrayCounter = 0;
 
 var width = 2500,
