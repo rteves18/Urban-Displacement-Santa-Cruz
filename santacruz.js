@@ -190,8 +190,20 @@ function updateData() {
 
 d3.select(self.frameElement).style("height", height + "px");
 
-function change_to_housing(){
-  console.log("change_to_housing()")
-  current_data = housing_unit;
-  updateData();
-}
+document.getElementById("myList").onchange = function() {
+   if (this.value == "housing_unit") {
+      current_data = housing_unit;
+      updateData();
+   } else if (this.value == "median_contract_rent") {
+      current_data = median_contract_rent;
+      updateData();       
+   } else if (this.value == "median_value") {
+      current_data = median_value;
+      updateData();       
+   } else if (this.value == "median_income") {
+      current_data = median_income;
+      updateData();       
+   } else {
+       alert("Error: option data unavailable");
+   }
+};
