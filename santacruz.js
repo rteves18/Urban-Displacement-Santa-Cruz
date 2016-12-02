@@ -38,7 +38,7 @@ var path = d3.geo.path()
 // Orange color scheme
 var orange_color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
-  .range(["#fff7ec", "#fee8c8", "#fdd49e", "#fdbb84", "#fc8d59", "#ef6548", "#d7301f", "#b30000", "#7f0000"]);
+  .range(['#fff5eb','#fee6ce','#fdd0a2','#fdae6b','#fd8d3c','#f16913','#d94801','#a63603','#7f2704']);
 
 // Blue color scheme
 var blue_color = d3.scale.threshold()
@@ -48,22 +48,22 @@ var blue_color = d3.scale.threshold()
 // Green color scheme
 var green_color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
-  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+  .range(['#f7fcfd','#e5f5f9','#ccece6','#99d8c9','#66c2a4','#41ae76','#238b45','#006d2c','#00441b']);
 
 // Purple color scheme
 var purple_color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
-  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+  .range(['#fcfbfd','#efedf5','#dadaeb','#bcbddc','#9e9ac8','#807dba','#6a51a3','#54278f','#3f007d']);
 
 // Red color scheme
 var red_color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
-  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+  .range(['#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d']);
 
 // Yellow color scheme
 var yellow_color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
-  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+  .range(['#ffffe5','#fff7bc','#fee391','#fec44f','#fe9929','#ec7014','#cc4c02','#993404','#662506']);
 
 var color = orange_color;
 
