@@ -113,8 +113,9 @@ refresh(); //refresh map
 function refresh() {
     
  if (firstLoad) {
-     legendText = "Housing Unit";
+    legendText = "Housing Unit";
     firstLoad = false;
+    current_data = housing_unit;
  } else {
     console.log("found a g");
     g.selectAll("*")
@@ -143,7 +144,7 @@ function refresh() {
     .attr("y", -6)
     .text(legendText);
 
-  d3.json(housing_unit[jsonArrayCounter], function(error, sc){
+  d3.json(current_data[jsonArrayCounter], function(error, sc){
     console.log(sc);
     if (error) throw error;
     var tracts = topojson.feature(sc, sc.objects.sctracts);
