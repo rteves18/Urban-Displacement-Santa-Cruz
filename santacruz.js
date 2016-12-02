@@ -1,8 +1,9 @@
 //Toggle color and boundary variables
 var changeColor = false;
 var showBoundary = true;
-
+var firstLoad = true;
 // Loading Up the Data
+var legendText;
 var current_data = [];
 var housing_unit = ['sc_housingunit09.json', 'sc_housingunit10.json', 'sc_housingunit11.json', 
                  'sc_housingunit12.json', 'sc_housingunit13.json', 'sc_housingunit14.json'];
@@ -107,10 +108,20 @@ var svg = d3.select("body").append("svg")
   .attr("height", height);
 
 refresh(); //refresh map
-
+ var g;
 //Refresh Geomap function    
 function refresh() {
-  var g = svg.append("g")
+    
+ if (firstLoad) {
+     legendText = "Housing Unit";
+    firstLoad = false;
+ } else {
+    console.log("found a g");
+    g.selectAll("*")
+       .remove();
+ }
+    
+  g = svg.append("g")
     .attr("class", "key")
     .attr("transform", "translate(440,40)");
 
@@ -130,7 +141,7 @@ function refresh() {
   g.call(xAxis).append("text")
     .attr("class", "caption")
     .attr("y", -6)
-    .text("Population per square mile");
+    .text(legendText);
 
   d3.json(housing_unit[jsonArrayCounter], function(error, sc){
     console.log(sc);
@@ -209,26 +220,32 @@ document.getElementById("myList").onchange = function() {
    if (this.value == "housing_unit") {
       current_data = housing_unit;
       color = orange_color;
+      legendText = "Housing Unit";
       updateData();
    } else if (this.value == "median_contract_rent") {
       current_data = median_contract_rent;
       color = red_color;
+      legendText = "Median Contract Rent (USD)";
       updateData();       
    } else if (this.value == "median_value") {
       current_data = median_value;
       color = yellow_color;
+      legendText = "Median Value (USD)";
       updateData();       
    } else if (this.value == "median_year_miubt") {
       current_data = median_year_miubt;
       color = blue_color;
+      legendText = "Median Year MIUBT";
       updateData();       
    } else if (this.value == "median_income") {
       current_data = median_income;
       color = purple_color;
+      legendText = "Median Income (USD)";
       updateData();       
    } else if (this.value == "tenure") {
       current_data = tenure;
       color = green_color;
+      legendText = "Tenure (Years)";
       updateData();       
    } else {
        alert("Error: option data unavailable");
