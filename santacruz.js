@@ -2,6 +2,7 @@
 var changeColor = false;
 var showBoundary = true;
 var firstLoad = true;
+var toolTipLabel;
 // Loading Up the Data
 var legendText;
 var current_data = [];
@@ -68,6 +69,8 @@ var yellow_color = d3.scale.threshold()
 
 var color = orange_color;
 
+var g;
+
 d3.select("input.color").on("click", toggleColor);
 d3.select("input.boundary").on("click", toggleBoundary);
 
@@ -108,7 +111,6 @@ var svg = d3.select("body").append("svg")
   .attr("height", height);
 
 refresh(); //refresh map
- var g;
 //Refresh Geomap function    
 function refresh() {
     
@@ -117,7 +119,6 @@ function refresh() {
     firstLoad = false;
     current_data = housing_unit;
  } else {
-    console.log("found a g");
     g.selectAll("*")
        .remove();
  }
@@ -177,7 +178,6 @@ function refresh() {
         .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); })
         .on("mouseover", function(d){
             var totalPopulationInGroup = 0;
-            var toolTipLabel = '<br/> Population: '+ d.key;
             tooltip = d3.select("body")
                 .append("div")
                 .style("position", "absolute")
@@ -218,36 +218,37 @@ function updateData() {
 d3.select(self.frameElement).style("height", height + "px");
 
 document.getElementById("myList").onchange = function() {
+   jsonArrayCounter=0;
    if (this.value == "housing_unit") {
       current_data = housing_unit;
       color = orange_color;
       legendText = "Housing Unit";
-      updateData();
+      refresh();
    } else if (this.value == "median_contract_rent") {
       current_data = median_contract_rent;
       color = red_color;
       legendText = "Median Contract Rent (USD)";
-      updateData();       
+      refresh();       
    } else if (this.value == "median_value") {
       current_data = median_value;
       color = yellow_color;
       legendText = "Median Value (USD)";
-      updateData();       
+      refresh();       
    } else if (this.value == "median_year_miubt") {
       current_data = median_year_miubt;
       color = blue_color;
       legendText = "Median Year MIUBT";
-      updateData();       
+      refresh();       
    } else if (this.value == "median_income") {
       current_data = median_income;
       color = purple_color;
       legendText = "Median Income (USD)";
-      updateData();       
+      refresh();       
    } else if (this.value == "tenure") {
       current_data = tenure;
       color = green_color;
       legendText = "Tenure (Years)";
-      updateData();       
+      refresh();       
    } else {
        alert("Error: option data unavailable");
    }
