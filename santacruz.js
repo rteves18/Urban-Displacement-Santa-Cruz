@@ -28,9 +28,9 @@ var width = 2500,
   height = 700;
 var formatNumber = d3.format(",d");
 var projection = d3.geo.albers()
-  .scale(70000)
+  .scale(85000)
   .rotate([96])
-  .translate([24600, 1700]);
+  .translate([29850, 2050]);
 
 var path = d3.geo.path()
   .projection(projection);
