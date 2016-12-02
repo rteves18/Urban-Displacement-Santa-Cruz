@@ -21,9 +21,6 @@ var median_value = ['sc_MedianValue09.json', 'sc_MedianValue10.json', 'sc_Median
 var median_income = ['sc_MedianIncome09.json', 'sc_MedianIncome10.json', 'sc_MedianIncome11.json',
                     'sc_MedianIncome12.json', 'sc_MedianIncome13.json', 'sc_MedianIncome14.json']
 
-var median_value = ['sc_MedianValue09.json', 'sc_MedianValue10.json', 'sc_MedianValue11.json', 
-                   'sc_MedianValue12.json', 'sc_MedianValue13.json', 'sc_MedianValue14.json']
-
 
 var jsonArrayCounter = 0;
 
@@ -39,7 +36,7 @@ var path = d3.geo.path()
   .projection(projection);
 
 // Orange color scheme
-var color = d3.scale.threshold()
+var orange_color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
   .range(["#fff7ec", "#fee8c8", "#fdd49e", "#fdbb84", "#fc8d59", "#ef6548", "#d7301f", "#b30000", "#7f0000"]);
 
@@ -47,6 +44,28 @@ var color = d3.scale.threshold()
 var blue_color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
   .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+
+// Green color scheme
+var green_color = d3.scale.threshold()
+  .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
+  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+
+// Purple color scheme
+var purple_color = d3.scale.threshold()
+  .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
+  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+
+// Red color scheme
+var red_color = d3.scale.threshold()
+  .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
+  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+
+// Yellow color scheme
+var yellow_color = d3.scale.threshold()
+  .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
+  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+
+var color = orange_color;
 
 d3.select("input.color").on("click", toggleColor);
 d3.select("input.boundary").on("click", toggleBoundary);
@@ -57,14 +76,10 @@ function toggleColor() {
   changeColor = !changeColor;
 
   if(changeColor){  
-    color = d3.scale.threshold()
-    .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
-    .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+    color = blue_color;
   }
   else {
-    color = d3.scale.threshold()
-    .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
-    .range(["#fff7ec", "#fee8c8", "#fdd49e", "#fdbb84", "#fc8d59", "#ef6548", "#d7301f", "#b30000", "#7f0000"]); 
+    color = orange_color;
   }
   
   refresh(); //refresh map  
@@ -193,15 +208,27 @@ d3.select(self.frameElement).style("height", height + "px");
 document.getElementById("myList").onchange = function() {
    if (this.value == "housing_unit") {
       current_data = housing_unit;
+      color = orange_color;
       updateData();
    } else if (this.value == "median_contract_rent") {
       current_data = median_contract_rent;
+      color = red_color;
       updateData();       
    } else if (this.value == "median_value") {
       current_data = median_value;
+      color = yellow_color;
+      updateData();       
+   } else if (this.value == "median_year_miubt") {
+      current_data = median_year_miubt;
+      color = blue_color;
       updateData();       
    } else if (this.value == "median_income") {
       current_data = median_income;
+      color = purple_color;
+      updateData();       
+   } else if (this.value == "tenure") {
+      current_data = tenure;
+      color = green_color;
       updateData();       
    } else {
        alert("Error: option data unavailable");
