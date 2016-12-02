@@ -1,8 +1,30 @@
 //Toggle color and boundary variables
 var changeColor = false;
 var showBoundary = true;
-var jsonArray = ['sc_pop.json', 'sc_housingunit09.json', 'sc_housingunit10.json', 'sc_housingunit11.json', 
+
+// Loading Up the Data
+var current_data = [];
+var housing_unit = ['sc_housingunit09.json', 'sc_housingunit10.json', 'sc_housingunit11.json', 
                  'sc_housingunit12.json', 'sc_housingunit13.json', 'sc_housingunit14.json'];
+
+var tenure = ['sc_tenure09.json', 'sc_tenure10.json', 'sc_tenure11.json', 
+              'sc_tenure12.json', 'sc_tenure13.json', 'sc_tenure14.json'];
+
+var median_contract_rent = ['sc_MedianContractRent09.json', 'sc_MedianContractRent10.json',
+                            'sc_MedianContractRent11.json', 'sc_MedianContractRent12.json', 'sc_MedianContractRent13.json', 'sc_MedianContractRent14.json'];
+
+var median_year_miubt = ['sc_MedianYearMIUBT09.json', 'sc_MedianYearMIUBT10.json', 'sc_MedianYearMIUBT11.json',
+                         'sc_MedianYearMIUBT12.json', 'sc_MedianYearMIUBT13.json', 'sc_MedianYearMIUBT14.json'];
+
+var median_value = ['sc_MedianValue09.json', 'sc_MedianValue10.json', 'sc_MedianValue11.json', 'sc_MedianValue12.json', 'sc_MedianValue13.json', 'sc_MedianValue14.json'];
+
+var median_income = ['sc_MedianIncome09.json', 'sc_MedianIncome10.json', 'sc_MedianIncome11.json',
+                    'sc_MedianIncome12.json', 'sc_MedianIncome13.json', 'sc_MedianIncome14.json']
+
+var median_value = ['sc_MedianValue09.json', 'sc_MedianValue10.json', 'sc_MedianValue11.json', 
+                   'sc_MedianValue12.json', 'sc_MedianValue13.json', 'sc_MedianValue14.json']
+
+
 var jsonArrayCounter = 0;
 
 var width = 2500,
@@ -15,9 +37,16 @@ var projection = d3.geo.albers()
 
 var path = d3.geo.path()
   .projection(projection);
+
+// Orange color scheme
 var color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
   .range(["#fff7ec", "#fee8c8", "#fdd49e", "#fdbb84", "#fc8d59", "#ef6548", "#d7301f", "#b30000", "#7f0000"]);
+
+// Blue color scheme
+var blue_color = d3.scale.threshold()
+  .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
+  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
 
 d3.select("input.color").on("click", toggleColor);
 d3.select("input.boundary").on("click", toggleBoundary);
@@ -88,7 +117,7 @@ function refresh() {
     .attr("y", -6)
     .text("Population per square mile");
 
-  d3.json(jsonArray[jsonArrayCounter], function(error, sc){
+  d3.json(housing_unit[jsonArrayCounter], function(error, sc){
     console.log(sc);
     if (error) throw error;
     var tracts = topojson.feature(sc, sc.objects.sctracts);
@@ -152,7 +181,7 @@ function refresh() {
 function updateData() {
     
     jsonArrayCounter++;
-    if (jsonArrayCounter >= jsonArray.length) {
+    if (jsonArrayCounter >= housing_unit.length) {
         jsonArrayCounter=0;
     }
     refresh();
@@ -160,3 +189,9 @@ function updateData() {
 }
 
 d3.select(self.frameElement).style("height", height + "px");
+
+function change_to_housing(){
+  console.log("change_to_housing()")
+  current_data = housing_unit;
+  updateData();
+}
