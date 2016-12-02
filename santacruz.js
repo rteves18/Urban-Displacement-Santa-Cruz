@@ -2,6 +2,7 @@
 var changeColor = false;
 var showBoundary = true;
 var firstLoad = true;
+var current_value_dropdown = "housing_unit";
 var toolTipLabel;
 // Loading Up the Data
 var legendText;
@@ -146,7 +147,8 @@ function refresh() {
     .text(legendText);
 
   d3.json(current_data[jsonArrayCounter], function(error, sc){
-    console.log(sc);
+    console.log(sc); 
+    
     if (error) throw error;
     var tracts = topojson.feature(sc, sc.objects.sctracts);
     var tooltip;  
@@ -177,6 +179,7 @@ function refresh() {
         .style("fill", function(d) { return valuesMap[d.key]; })
         .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); })
         .on("mouseover", function(d){
+            toolTipLabel = getToolTipLabel(d);
             var totalPopulationInGroup = 0;
             tooltip = d3.select("body")
                 .append("div")
@@ -215,10 +218,29 @@ function updateData() {
 
 }
 
+function getToolTipLabel(d) {
+   if (this.current_value_dropdown == "housing_unit") {
+      return "housing_unit<br/>" + d.key + "<br/>" + d.value;
+   } else if (this.current_value_dropdown == "median_contract_rent") {
+      return "median_contract_rent<br/>" + d.key + "<br/>" + d.value;;      
+   } else if (this.current_value_dropdown == "median_value") {
+      return "median_value<br/>" + d.key + "<br/>" + d.value;;      
+   } else if (this.current_value_dropdown == "median_year_miubt") {
+      return "median_year_miubt<br/>" + d.key + "<br/>" + d.value;;     
+   } else if (this.current_value_dropdown == "median_income") {
+      return "median_income<br/>" + d.key + "<br/>" + d.value;;    
+   } else if (this.current_value_dropdown == "tenure") {
+      return "tenure<br/>" + d.key + "<br/>" + d.value;;      
+   } else {
+       alert("Error: option data unavailable: " + this.current_value_dropdown);
+   }    
+}
+
 d3.select(self.frameElement).style("height", height + "px");
 
 document.getElementById("myList").onchange = function() {
    jsonArrayCounter=0;
+   current_value_dropdown=this.value;
    if (this.value == "housing_unit") {
       current_data = housing_unit;
       color = orange_color;
