@@ -1,30 +1,57 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+
 <head>
-  <link rel="stylesheet" type="text/css" href="santacruz.css"/>
-  <script src="//d3js.org/d3.v3.min.js"></script>
-  <script src="//d3js.org/topojson.v1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="santacruz.css" />
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
 <body>
-  <h2> Santa Cruz County Population Density Map </h2>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Urban Displacement in Santa Cruz County</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
 
-  <!--Toggle color button-->
-  <input class="color" type="button" name="color_change" value="Toggle Color"> 
-  <!--Toggle show boundaries button-->
-  <input class="boundary" type="button" name="boundary_change" value="Toggle Boundary">
-  <div id="option">
-    <input name="updateButton" 
-           type="button" 
-           value="Update" 
-           onclick="updateData()" />
-  </div>
-  <script type="text/javascript" src="santacruz.js"></script>        
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="https://github.com/rteves18/Urban-Displacement-Santa-Cruz"><i class="fa fa-github fa-2" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="map-container">
+            <!--Toggle color button-->
+            <input class="color" type="button" name="color_change" value="Toggle Color">
+            <!--Toggle show boundaries button-->
+            <input class="boundary" type="button" name="boundary_change" value="Toggle Boundary">
+            <div id="option">
+                <input name="updateButton" type="button" value="Update" onclick="updateData()" />
+            </div>
+            <script type="text/javascript" src="santacruz.js"></script>
+        </div>
+    </div>
+
+
+    <!-- Boostrap Javascript-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
-    
-<br>
-Instructor: Suresh Lodha 
-<br>
-CMPS 165: Data programming for Visualization 
-<br>
-Fall 2016
+
+<br> Instructor: Suresh Lodha
+<br> CMPS 165: Data programming for Visualization
+<br> Fall 2016

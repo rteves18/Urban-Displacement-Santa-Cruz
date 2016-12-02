@@ -58,7 +58,7 @@ var xAxis = d3.svg.axis()
   .tickSize(13)
   .tickValues(color.domain())
   .tickFormat(function(d) { return d >= 100 ? formatNumber(d) : null; });
-var svg = d3.select("body").append("svg")
+var svg = d3.select(".map-container").append("svg")
   .attr("width", width)
   .attr("height", height);
 
