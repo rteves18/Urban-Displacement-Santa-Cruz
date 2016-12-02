@@ -1,3 +1,8 @@
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+
 svg {
   font: 10px sans-serif;
 }
@@ -23,4 +28,20 @@ input{
 
 .map-container {
     background-color: gray;
+    width:100%;
+}
+
+.information-container {
+    background-color: beige;
+}
+
+.size-bttn-container {
+    position: absolute;
+    bottom: -3px;
+    left:50%;
+}
+
+.size-bttn {
+    position: relative;
+    left: -50%;
 }

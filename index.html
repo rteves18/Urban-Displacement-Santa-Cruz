@@ -34,16 +34,29 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="map-container">
-            <!--Toggle color button-->
-            <input class="color" type="button" name="color_change" value="Toggle Color">
-            <!--Toggle show boundaries button-->
-            <input class="boundary" type="button" name="boundary_change" value="Toggle Boundary">
-            <div id="option">
-                <input name="updateButton" type="button" value="Update" onclick="updateData()" />
+    <div class="container-full">
+        <div class="row">
+            <div class="map-container">
+                <!--Toggle color button-->
+                <input class="color" type="button" name="color_change" value="Toggle Color">
+                <!--Toggle show boundaries button-->
+                <input class="boundary" type="button" name="boundary_change" value="Toggle Boundary">
+                <div id="option">
+                    <input name="updateButton" type="button" value="Update" onclick="updateData()" />
+                </div>
+                <script type="text/javascript" src="santacruz.js"></script>
+                <div class="size-bttn-container">
+                    <button type="button" class="btn btn-default size-bttn center">Larger Map</button>
+                </div>
+                
             </div>
-            <script type="text/javascript" src="santacruz.js"></script>
+            
+        </div>
+        <div class="row">
+            <div class="information-container">
+                <br> Instructor: Suresh Lodha
+                <br> CMPS 165: Data programming for Visualization
+                <br> Fall 2016</div>
         </div>
     </div>
 
@@ -51,7 +64,3 @@
     <!-- Boostrap Javascript-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
-
-<br> Instructor: Suresh Lodha
-<br> CMPS 165: Data programming for Visualization
-<br> Fall 2016
