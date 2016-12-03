@@ -1,47 +1,78 @@
+html {
+    overflow-x: hidden;
+}
+
+nav {
+    color: white !important;
+}
+    
 .container-full {
-  margin: 0 auto;
-  width: 100%;
+    margin: 0 auto;
+    width: 100%;
 }
 
 svg {
-  font: 10px sans-serif;
+    font: 10px sans-serif;
 }
+
 .caption {
-  font-weight: bold;
+    font-weight: bold;
 }
+
 .key path {
-  display: none;
+    display: none;
 }
+
 .key line {
-  stroke: #000;
-  shape-rendering: crispEdges;
+    stroke: #000;
+    shape-rendering: crispEdges;
 }
+
 .county-border {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: .3;
+    fill: none;
+    stroke: #000;
+    stroke-opacity: .3;
 }
-input{
-  position:relative;
-  top: 700px;
+
+input {
+    position: relative;
+    top: 700px;
 }
 
 .map-container {
     background-color: gray;
-    width:100%;
-}
+    padding-top: 100px;
+    padding-left: 150px;
+    width: 100%;
+} 
 
-.information-container {
-    background-color: beige;
-}
-
-.size-bttn-container {
-    position: absolute;
-    bottom: -3px;
-    left:50%;
-}
-
-.size-bttn {
+.map-low-left {
     position: relative;
-    left: -50%;
+    float: left;
+    margin-bottom: 10px;    
 }
+
+.expand-map {
+    text-align: center;
+    position: relative;
+    z-index: 9999;
+}
+
+.expand-map a {
+    font-size: 16px;
+    padding: 10px 50px;
+    margin: -75px 0 0 0;
+}
+
+.main-container {
+    padding: 20px;
+}
+
+
+.footer-wrapper {
+    height: 300px;  
+    width: 100%;
+    background-color: #337AB7;
+    margin: 0; 
+}
+
