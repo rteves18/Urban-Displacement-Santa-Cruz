@@ -15,9 +15,6 @@ var tenure = ['sc_tenure09.json', 'sc_tenure10.json', 'sc_tenure11.json',
 var median_contract_rent = ['sc_MedianContractRent09.json', 'sc_MedianContractRent10.json',
                             'sc_MedianContractRent11.json', 'sc_MedianContractRent12.json', 'sc_MedianContractRent13.json', 'sc_MedianContractRent14.json'];
 
-var median_year_miubt = ['sc_MedianYearMIUBT09.json', 'sc_MedianYearMIUBT10.json', 'sc_MedianYearMIUBT11.json',
-                         'sc_MedianYearMIUBT12.json', 'sc_MedianYearMIUBT13.json', 'sc_MedianYearMIUBT14.json'];
-
 var median_value = ['sc_MedianValue09.json', 'sc_MedianValue10.json', 'sc_MedianValue11.json', 'sc_MedianValue12.json', 'sc_MedianValue13.json', 'sc_MedianValue14.json'];
 
 var median_income = ['sc_MedianIncome09.json', 'sc_MedianIncome10.json', 'sc_MedianIncome11.json',
@@ -37,34 +34,34 @@ var projection = d3.geo.albers()
 var path = d3.geo.path()
   .projection(projection);
 
-// Orange color scheme
+// Orange color scheme - Housing Unit
 var orange_color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
   .range(['#fff5eb','#fee6ce','#fdd0a2','#fdae6b','#fd8d3c','#f16913','#d94801','#a63603','#7f2704']);
 
-// Blue color scheme
-var blue_color = d3.scale.threshold()
-  .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
-  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
+// // Blue color scheme - Median Year MIUBT
+// var blue_color = d3.scale.threshold()
+//   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
+//   .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
 
-// Green color scheme
+// Green color scheme - Tenure
 var green_color = d3.scale.threshold()
-  .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
+  .domain([10, 100, 200, 300, 400, 600, 800, 1000])
   .range(['#f7fcfd','#e5f5f9','#ccece6','#99d8c9','#66c2a4','#41ae76','#238b45','#006d2c','#00441b']);
 
-// Purple color scheme
+// Purple color scheme - Median Income
 var purple_color = d3.scale.threshold()
-  .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
+  .domain([500, 1000, 2500, 50000, 100000, 130000, 150000, 200000])
   .range(['#fcfbfd','#efedf5','#dadaeb','#bcbddc','#9e9ac8','#807dba','#6a51a3','#54278f','#3f007d']);
 
-// Red color scheme
+// Red color scheme - Contract Rent
 var red_color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
   .range(['#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d']);
 
-// Yellow color scheme
+// Yellow color scheme - Median Value
 var yellow_color = d3.scale.threshold()
-  .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
+  .domain([1000, 5000, 25000, 50000, 100000, 250000, 500000, 900000])
   .range(['#ffffe5','#fff7bc','#fee391','#fec44f','#fe9929','#ec7014','#cc4c02','#993404','#662506']);
 
 var color = orange_color;
@@ -233,12 +230,7 @@ document.getElementById("myList").onchange = function() {
       current_data = median_value;
       color = yellow_color;
       legendText = "Median Value (USD)";
-      refresh();       
-   } else if (this.value == "median_year_miubt") {
-      current_data = median_year_miubt;
-      color = blue_color;
-      legendText = "Median Year MIUBT";
-      refresh();       
+      refresh();            
    } else if (this.value == "median_income") {
       current_data = median_income;
       color = purple_color;
