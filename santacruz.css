@@ -20,3 +20,16 @@ input{
   position:relative;
   top: 700px;
 }
+
+.tooltip {   
+  position: absolute;           
+  text-align: left;           
+  width: 175x;                  
+  height: 216px;                 
+  padding: 12px;             
+  font: 12px sans-serif;        
+  background: lightsteelblue;   
+  border: 0px;      
+  border-radius: 8px;
+  pointer-events: none;         
+}

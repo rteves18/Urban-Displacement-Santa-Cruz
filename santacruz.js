@@ -8,6 +8,7 @@ var toolTipLabel;
 var legendText;
 var properties_year;
 var current_data = [];
+var year = "2010";
 var json_test = ['sc_housingUnit.json'];
 var fieldtest = ['ten','eleven','twelve','thirteen','fourteen'];
 var counter = 0;
@@ -76,11 +77,11 @@ var color = orange_color;
 
 var g;
 
-d3.select("input.color").on("click", toggleColor);
+//d3.select("input.color").on("click", toggleColor);
 d3.select("input.boundary").on("click", toggleBoundary);
 
 //Toggle color range between Red and Blue
-function toggleColor() {
+/*function toggleColor() {
 
   changeColor = !changeColor;
 
@@ -93,7 +94,7 @@ function toggleColor() {
   
   refresh(); //refresh map  
   
-}
+}*/
 
 //Toggle showBoundary boolean true or false
 function toggleBoundary(){
@@ -201,6 +202,7 @@ function refresh() {
             var totalPopulationInGroup = 0;
             tooltip = d3.select("body")
                 .append("div")
+                .attr("class", "tooltip")
                 .style("position", "absolute")
                 .style("z-index", "10")
                 .style("visibility", "hidden")
@@ -232,13 +234,30 @@ function updateData() {
     if (jsonArrayCounter > 14) {
         jsonArrayCounter=10;
     }
+    if (jsonArrayCounter == 10) {
+        this.year = "2010";
+    } else if (jsonArrayCounter == 11) {
+        this.year = "2011";
+    } else if (jsonArrayCounter == 12) {
+        this.year = "2012";
+    } else if (jsonArrayCounter == 13) {
+        this.year = "2013";
+    } else if (jsonArrayCounter == 14) {
+        this.year = "2014";
+    }
     refresh();
 
 }
 
 function getToolTipLabel(d) {
+
+    var finalLabel = "<strong><div style='text-align:center;'>" +  "County" + "</div></strong><strong><div style='text-align:center;'>" +  "Tract"
+                + "</div></strong>"
+                + "<table><tr><th>Year</th><th>Value</th><th>Income</th></tr>"
+                + "<tr>" + "<tr><th>"+this.year+"</th><th><font color ='#b30000'>" + d.values[0].properties.thirteen
+                + "</font></th><th><font color='#006837'>$"+ d.values[0].properties.ten;
     var values = "<br/>" + d.values[0].properties.ten + "<br/>" + d.values[0].properties.eleven  + "<br/>" + d.values[0].properties.twelve + "<br/>" + d.values[0].properties.thirteen + "<br/>" + d.values[0].properties.fourteen;
-   if (this.current_value_dropdown == "housing_unit") {
+   /*if (this.current_value_dropdown == "housing_unit") {
       return "housing_unit<br/>" +"key: "+ d.key + "<br/>values: " + values;
    } else if (this.current_value_dropdown == "median_contract_rent") {
       return "median_contract_rent<br/>" +"key: "+ d.key + "<br/>values: "+values;    
@@ -252,7 +271,8 @@ function getToolTipLabel(d) {
       return "tenure<br/>" +"key: "+ d.key +"<br/>values: "+ values;      
    } else {
        alert("Error: option data unavailable: " + this.current_value_dropdown);
-   }    
+   } */   
+    return finalLabel;
 }
 
 d3.select(self.frameElement).style("height", height + "px");
