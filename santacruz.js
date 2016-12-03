@@ -227,7 +227,7 @@ function refresh() {
 
 // ** Update data section (Called from the onclick)
 function updateData() {
-    console.log(jsonArrayCounter);
+    
     this.jsonArrayCounter++;
     if (jsonArrayCounter > 14) {
         jsonArrayCounter=10;
@@ -237,18 +237,20 @@ function updateData() {
 }
 
 function getToolTipLabel(d) {
+    console.log(d);
+    var values = "<br/>" + d.values[0].properties.ten + "<br/>" + d.values[0].properties.eleven  + "<br/>" + d.values[0].properties.twelve + "<br/>" + d.values[0].properties.thirteen + "<br/>" + d.values[0].properties.fourteen;
    if (this.current_value_dropdown == "housing_unit") {
-      return "housing_unit<br/>" + d.key + "<br/>" + d.value;
+      return "housing_unit<br/>" + d.key + values;
    } else if (this.current_value_dropdown == "median_contract_rent") {
-      return "median_contract_rent<br/>" + d.key + "<br/>" + d.value;;      
+      return "median_contract_rent<br/>" + d.key + values;    
    } else if (this.current_value_dropdown == "median_value") {
-      return "median_value<br/>" + d.key + "<br/>" + d.value;;      
+      return "median_value<br/>" + d.key + values;      
    } else if (this.current_value_dropdown == "median_year_miubt") {
-      return "median_year_miubt<br/>" + d.key + "<br/>" + d.value;;     
+      return "median_year_miubt<br/>" + d.key + values;     
    } else if (this.current_value_dropdown == "median_income") {
-      return "median_income<br/>" + d.key + "<br/>" + d.value;;    
+      return "median_income<br/>" + d.key + values;    
    } else if (this.current_value_dropdown == "tenure") {
-      return "tenure<br/>" + d.key + "<br/>" + d.value;;      
+      return "tenure<br/>" + d.key + values;      
    } else {
        alert("Error: option data unavailable: " + this.current_value_dropdown);
    }    
