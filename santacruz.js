@@ -7,6 +7,8 @@ var toolTipLabel;
 // Loading Up the Data
 var legendText;
 var current_data = [];
+var json_test = ['sc_housingUnit.json'];
+var field_test = ['ten','eleven'];
 var housing_unit = ['sc_housingunit09.json', 'sc_housingunit10.json', 'sc_housingunit11.json', 
                  'sc_housingunit12.json', 'sc_housingunit13.json', 'sc_housingunit14.json'];
 
@@ -146,7 +148,7 @@ function refresh() {
     .attr("y", -6)
     .text(legendText);
 
-  d3.json(current_data[jsonArrayCounter], function(error, sc){
+  d3.json(json_test[jsonArrayCounter], function(error, sc){
     console.log(sc); 
     
     if (error) throw error;
@@ -168,8 +170,8 @@ function refresh() {
       .selectAll("path")
         .data(d3.nest()
           .key(function(d) {
-            valuesMap[d.properties.population]=color(d.properties.population / d.properties.area * 2.58999e6);
-            return d.properties.population; 
+            valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+            return d.properties.ten; 
           })
           .entries(tracts.features.filter(function(d) {
             return d.properties.area; 
