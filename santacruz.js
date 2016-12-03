@@ -6,9 +6,11 @@ var current_value_dropdown = "housing_unit";
 var toolTipLabel;
 // Loading Up the Data
 var legendText;
+var properties_year;
 var current_data = [];
 var json_test = ['sc_housingUnit.json'];
-var field_test = ['ten','eleven'];
+var fieldtest = ['ten','eleven','twelve','thirteen','fourteen'];
+var counter = 0;
 var housing_unit = ['sc_housingunit09.json', 'sc_housingunit10.json', 'sc_housingunit11.json', 
                  'sc_housingunit12.json', 'sc_housingunit13.json', 'sc_housingunit14.json'];
 
@@ -149,7 +151,6 @@ function refresh() {
     .text(legendText);
 
   d3.json(json_test[jsonArrayCounter], function(error, sc){
-    console.log(sc); 
     
     if (error) throw error;
     var tracts = topojson.feature(sc, sc.objects.sctracts);
@@ -162,6 +163,7 @@ function refresh() {
         .attr("d", path);
 
     // Individual tracts for tool tip.
+    
     // Group tracts by color for faster rendering.
       var valuesMap = {};
       svg.append("g")
@@ -170,8 +172,22 @@ function refresh() {
       .selectAll("path")
         .data(d3.nest()
           .key(function(d) {
-            valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
-            return d.properties.ten; 
+            if (jsonArrayCounter == 0) {
+              valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+              return d.properties.ten; 
+            } else if (jsonArrayCounter == 1) {
+              valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
+              return d.properties.eleven; 
+            } else if (jsonArrayCounter == 2) {
+              valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
+              return d.properties.twelve; 
+            } else if (jsonArrayCounter == 3) {
+              valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
+              return d.properties.thirteen; 
+            } else if (jsonArrayCounter == 4) {
+              valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
+              return d.properties.fourteen; 
+            } 
           })
           .entries(tracts.features.filter(function(d) {
             return d.properties.area; 
@@ -211,11 +227,11 @@ function refresh() {
 
 // ** Update data section (Called from the onclick)
 function updateData() {
-    
-    jsonArrayCounter++;
-    if (jsonArrayCounter >= housing_unit.length) {
+    console.log(jsonArrayCounter);
+    this.jsonArrayCounter++;
+    /*if (jsonArrayCounter >= 5) {
         jsonArrayCounter=0;
-    }
+    }*/
     refresh();
 
 }
