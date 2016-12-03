@@ -29,7 +29,7 @@ var median_income = ['sc_MedianIncome09.json', 'sc_MedianIncome10.json', 'sc_Med
                     'sc_MedianIncome12.json', 'sc_MedianIncome13.json', 'sc_MedianIncome14.json']
 
 
-var jsonArrayCounter = 0;
+var jsonArrayCounter = 10;
 
 var width = 2500,
   height = 700;
@@ -150,7 +150,7 @@ function refresh() {
     .attr("y", -6)
     .text(legendText);
 
-  d3.json(json_test[jsonArrayCounter], function(error, sc){
+  d3.json(json_test[0], function(error, sc){
     
     if (error) throw error;
     var tracts = topojson.feature(sc, sc.objects.sctracts);
@@ -172,19 +172,19 @@ function refresh() {
       .selectAll("path")
         .data(d3.nest()
           .key(function(d) {
-            if (jsonArrayCounter == 0) {
+            if (jsonArrayCounter == 10) {
               valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
               return d.properties.ten; 
-            } else if (jsonArrayCounter == 1) {
+            } else if (jsonArrayCounter == 11) {
               valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
               return d.properties.eleven; 
-            } else if (jsonArrayCounter == 2) {
+            } else if (jsonArrayCounter == 12) {
               valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
               return d.properties.twelve; 
-            } else if (jsonArrayCounter == 3) {
+            } else if (jsonArrayCounter == 13) {
               valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
               return d.properties.thirteen; 
-            } else if (jsonArrayCounter == 4) {
+            } else if (jsonArrayCounter == 14) {
               valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
               return d.properties.fourteen; 
             } 
@@ -229,9 +229,9 @@ function refresh() {
 function updateData() {
     console.log(jsonArrayCounter);
     this.jsonArrayCounter++;
-    /*if (jsonArrayCounter >= 5) {
-        jsonArrayCounter=0;
-    }*/
+    if (jsonArrayCounter > 14) {
+        jsonArrayCounter=10;
+    }
     refresh();
 
 }
@@ -257,7 +257,7 @@ function getToolTipLabel(d) {
 d3.select(self.frameElement).style("height", height + "px");
 
 document.getElementById("myList").onchange = function() {
-   jsonArrayCounter=0;
+   jsonArrayCounter=10;
    current_value_dropdown=this.value;
    if (this.value == "housing_unit") {
       current_data = housing_unit;
