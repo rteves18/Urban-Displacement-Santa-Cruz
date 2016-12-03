@@ -237,20 +237,19 @@ function updateData() {
 }
 
 function getToolTipLabel(d) {
-    console.log(d);
     var values = "<br/>" + d.values[0].properties.ten + "<br/>" + d.values[0].properties.eleven  + "<br/>" + d.values[0].properties.twelve + "<br/>" + d.values[0].properties.thirteen + "<br/>" + d.values[0].properties.fourteen;
    if (this.current_value_dropdown == "housing_unit") {
-      return "housing_unit<br/>" + d.key + values;
+      return "housing_unit<br/>" +"key: "+ d.key + "<br/>values: " + values;
    } else if (this.current_value_dropdown == "median_contract_rent") {
-      return "median_contract_rent<br/>" + d.key + values;    
+      return "median_contract_rent<br/>" +"key: "+ d.key + "<br/>values: "+values;    
    } else if (this.current_value_dropdown == "median_value") {
-      return "median_value<br/>" + d.key + values;      
+      return "median_value<br/>" +"key: "+ d.key +"<br/>values: "+ values;      
    } else if (this.current_value_dropdown == "median_year_miubt") {
-      return "median_year_miubt<br/>" + d.key + values;     
+      return "median_year_miubt<br/>" +"key: "+ d.key +"<br/>values: "+ values;     
    } else if (this.current_value_dropdown == "median_income") {
-      return "median_income<br/>" + d.key + values;    
+      return "median_income<br/>" +"key: "+ d.key +"<br/>values: " + values;    
    } else if (this.current_value_dropdown == "tenure") {
-      return "tenure<br/>" + d.key + values;      
+      return "tenure<br/>" +"key: "+ d.key +"<br/>values: "+ values;      
    } else {
        alert("Error: option data unavailable: " + this.current_value_dropdown);
    }    
