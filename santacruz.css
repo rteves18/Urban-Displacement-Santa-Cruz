@@ -41,31 +41,33 @@ input {
 
 .map-container {
     background-color: gray;
-    padding-top: 100px;
+    padding-top: 80px;
     padding-left: 150px;
     width: 100%;
 } 
 
 .map-low-left {
     position: relative;
-    float: left;
-    margin-bottom: 10px;    
+    
+    width: 300px;
 }
 
-.expand-map {
+
+.expand-info {
     text-align: center;
     position: relative;
     z-index: 9999;
 }
 
-.expand-map a {
+.expand-info a {
     font-size: 16px;
     padding: 10px 50px;
-    margin: -75px 0 0 0;
+    margin: -130px 0 0 0;
 }
 
 .main-container {
-    padding: 20px;
+    padding-left: 20px;
+    padding-bottom: 50px;
 }
 
 
