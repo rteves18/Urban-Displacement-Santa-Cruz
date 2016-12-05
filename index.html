@@ -41,7 +41,16 @@
     <div class="container-full">
         <div class="row">
             <svg class="map-container">
-                
+                <div>
+                    <select id="myList">
+                        <option value="housing_unit">Housing Unit</option>
+                        <option value="tenure">Tenure</option>
+                        <option value="median_contract_rent">Median Contract Rent</option>
+                        <option value="median_value">Median Value</option>
+                        <option value="median_income">Household Income Total</option>
+                    </select>
+                </div>
+
                 <div class="map-low-left">
                     <!--Toggle color button-->
                     <input class="color" type="button" name="color_change" value="Toggle Color">
@@ -50,6 +59,7 @@
                     <div id="option">
                         <input name="updateButton" type="button" value="Update" onclick="updateData()" />
                     </div>
+
                 </div>
                 <script type="text/javascript" src="santacruz.js"></script>
             </svg>
@@ -86,3 +96,6 @@
 
 
 </body>
+
+
+<script type="text/javascript" src="santacruz.js"></script>

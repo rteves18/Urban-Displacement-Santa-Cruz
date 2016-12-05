@@ -29,15 +29,11 @@ svg {
 }
 
 .county-border {
-    fill: none;
-    stroke: #000;
-    stroke-opacity: .3;
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .3;
 }
 
-input {
-    position: relative;
-    top: 700px;
-}
 
 .map-container {
     background-color: gray;
@@ -47,11 +43,9 @@ input {
 } 
 
 .map-low-left {
-    position: relative;
-    
+    position: relative;    
     width: 300px;
 }
-
 
 .expand-info {
     text-align: center;
@@ -78,3 +72,15 @@ input {
     margin: 0; 
 }
 
+.tooltip {   
+  position: absolute;           
+  text-align: left;           
+  width: 175x;                  
+  height: 216px;                 
+  padding: 12px;             
+  font: 12px sans-serif;        
+  background: lightsteelblue;   
+  border: 0px;      
+  border-radius: 8px;
+  pointer-events: none;         
+}
