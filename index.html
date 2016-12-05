@@ -42,27 +42,39 @@
         <div class="row">
             <svg class="map-container">
                 <div>
-                    <select id="myList">
-                        <option value="housing_unit">Housing Unit</option>
-                        <option value="tenure">Tenure</option>
-                        <option value="median_contract_rent">Median Contract Rent</option>
-                        <option value="median_value">Median Value</option>
-                        <option value="median_income">Household Income Total</option>
-                    </select>
-                </div>
-
-                <div class="map-low-left">
-                    <!--Toggle color button-->
-                    <input class="color" type="button" name="color_change" value="Toggle Color">
-                    <!--Toggle show boundaries button-->
-                    <input class="boundary" type="button" name="boundary_change" value="Toggle Boundary">
-                    <div id="option">
-                        <input name="updateButton" type="button" value="Update" onclick="updateData()" />
-                    </div>
 
                 </div>
+
+
                 <script type="text/javascript" src="santacruz.js"></script>
             </svg>
+
+            <div class="map-dropdown">
+                <select id="myList">
+                    <option value="housing_unit">Housing Unit</option>
+                    <option value="tenure">Tenure</option>
+                    <option value="median_contract_rent">Median Contract Rent</option>
+                    <option value="median_value">Median Value</option>
+                    <option value="median_income">Household Income Total</option>
+                </select>
+            </div>
+            <div class="map-top-left">
+                <a href="#" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-plus"></span> </a>
+                <br>
+                <br>
+                <a href="#" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-minus"></span> </a>
+
+            </div>
+            <div class="map-low-left">
+                <!--Toggle color button-->
+                <input class="color" type="button" name="color_change" value="Toggle Color">
+                <!--Toggle show boundaries button-->
+                <input class="boundary" type="button" name="boundary_change" value="Toggle Boundary">
+                <div id="option">
+                    <input name="updateButton" type="button" value="Update" onclick="updateData()" />
+                </div>
+
+            </div>
             <div class="expand-info">
                 <a onclick="expandInfo();" class="btn btn-info">
 		See <span class="glyphicon glyphicon-chevron-down"></span> Info</a></div>

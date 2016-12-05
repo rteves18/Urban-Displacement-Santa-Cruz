@@ -31,7 +31,7 @@ var median_income = ['sc_MedianIncome09.json', 'sc_MedianIncome10.json', 'sc_Med
 var jsonArrayCounter = 10;
 
 var width = $(window).width(),
-  height = $(window).height() - 75;;
+  height = $(window).height() - 75;
 var formatNumber = d3.format(",d");
 var projection = d3.geo.albers()
   .scale(85000)
@@ -209,6 +209,8 @@ function refresh() {
             })).attr("class", "county-border").attr("d", path);
         }
     });
+    
+    
 }
 // ** Update data section (Called from the onclick)
 function updateData() {

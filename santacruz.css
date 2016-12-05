@@ -5,7 +5,7 @@ html {
 nav {
     color: white !important;
 }
-    
+
 .container-full {
     margin: 0 auto;
     width: 100%;
@@ -29,22 +29,44 @@ svg {
 }
 
 .county-border {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: .3;
+    fill: none;
+    stroke: #000;
+    stroke-opacity: .3;
 }
-
 
 .map-container {
     background-color: gray;
     padding-top: 80px;
     padding-left: 150px;
     width: 100%;
-} 
+}
 
 .map-low-left {
-    position: relative;    
+    position: absolute;
     width: 300px;
+    margin-top: -100px;
+    margin-left: 50px;
+}
+
+.map-low-right {
+    position: absolute;
+    width: 300px;
+    margin-top: -100px;
+    margin-right: 50px;
+}
+
+.map-top-left {
+    position: absolute;
+    width: 300px;
+    top: 120px;
+    margin-left: 50px;
+}
+
+.map-dropdown {
+    position: absolute;
+    width: 300px;
+    top: 120px;
+    margin-left: 180px;
 }
 
 .expand-info {
@@ -64,23 +86,22 @@ svg {
     padding-bottom: 50px;
 }
 
-
 .footer-wrapper {
-    height: 300px;  
+    height: 300px;
     width: 100%;
     background-color: #337AB7;
-    margin: 0; 
+    margin: 0;
 }
 
-.tooltip {   
-  position: absolute;           
-  text-align: left;           
-  width: 175x;                  
-  height: 216px;                 
-  padding: 12px;             
-  font: 12px sans-serif;        
-  background: lightsteelblue;   
-  border: 0px;      
-  border-radius: 8px;
-  pointer-events: none;         
+.tooltip {
+    position: absolute;
+    text-align: left;
+    width: 175x;
+    height: 216px;
+    padding: 12px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
 }
