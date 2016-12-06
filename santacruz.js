@@ -28,6 +28,8 @@ var median_income = ['sc_MedianIncome09.json', 'sc_MedianIncome10.json', 'sc_Med
 
 
 var jsonArrayCounter = 10;
+var running = false;
+var timer;
 
 var width = 2500,
   height = 700;
@@ -305,4 +307,89 @@ document.getElementById("myList").onchange = function() {
    } else {
        alert("Error: option data unavailable");
    }
+};
+
+
+$("button").on("click", function() {
+		
+    var duration = 3000,
+        maxstep = 2014,
+        minstep = 2010;
+    
+    if (running == true) {
+
+        $("button").html("Play");
+        running = false;
+        clearInterval(timer);
+
+    } 
+    /*
+    else if (running == true && $("#slider").val() == maxstep) {
+         running = true;
+         $("button").html("Play1");
+
+
+    } 
+    */
+    else if (running == false) {
+
+        $("button").html("Pause");
+
+        sliderValue = $("#slider").val();
+
+        timer = setInterval( function(){
+                if (sliderValue < maxstep){
+                    sliderValue++;
+                    $("#slider").val(sliderValue);
+                    $('#range').html(sliderValue);
+                }
+                $("#slider").val(sliderValue);
+                update();
+
+        }, duration);
+        running = true;
+
+
+    }
+
+});
+	
+$("#slider").on("change", function(){
+    update();
+    $("#range").html($("#slider").val());
+    clearInterval(timer);
+    $("button").html("Play");
+});
+	
+update = function() {
+
+    this.jsonArrayCounter++;
+    if (jsonArrayCounter == 14) {
+        $("button").html("Play");    
+        clearInterval(timer);
+        running = false;
+    } else if (jsonArrayCounter > 14) {
+        jsonArrayCounter=10;        
+    }
+    
+
+    switch ($("#slider").val()) {
+        case "2010":
+            this.year = "2010";
+            break;
+        case "2011":
+            this.year = "2011";
+            break;
+        case "2012":
+            this.year = "2012";
+            break;
+        case "2013":
+            this.year = "2013";
+            break;
+        case "2014":
+            this.year = "2014";
+            break;
+    }
+
+    refresh();
 };

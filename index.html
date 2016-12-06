@@ -8,7 +8,12 @@
 
 <body>
   <h2> Santa Cruz County Population Density Map </h2>
-
+  <div>
+      <input id="slider" type="range" min="2010" max="2014" value="2010" step="1" style="top: 0px;
+"/>
+      <span id="range">2010</span>
+      <button name="play" id="play">Play</button>    
+  </div>
   <!--Toggle color button-->
   <input class="color" type="button" name="color_change" value="Toggle Color"> 
   <!--Toggle show boundaries button-->
@@ -19,6 +24,9 @@
            value="Update" 
            onclick="updateData()" />
   </div>
+ 
+
+    
   <div>
     <select id="myList">
       <option value="housing_unit">Housing Unit</option>
@@ -28,6 +36,8 @@
       <option value="median_income">Household Income Total</option>
     </select>
   </div>
+  <script src="/html5slider.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script type="text/javascript" src="santacruz.js"></script>        
 </body>
     
