@@ -113,34 +113,33 @@ function refresh() {
   }
   
   //***Uncomment or Comment to see bug**//  
-  g = svg.append("g")
-       .attr("class", "key");
+  //g = svg.append("g")
+  //     .attr("class", "key");
   //************************************//
 
 
   //***OLD LEGEND***
   if(hostnr){
     hostnr = false;
-   g = svg.append("g")
-     .attr("class", "key")
-     .attr("transform", "translate(440,40)");
+    g = svg.append("g")
+      .attr("class", "key")
+      .attr("transform", "translate(440,40)");
 
-   g.selectAll("rect")
+    g.selectAll("rect")
      .data(color.range().map(function(d, i) {
-
-       return {
+        return {
          x0: i ? x(color.domain()[i - 1]) : x.range()[0],
          x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
          z: d
-       };
-   }))
-   .enter().append("rect")
+        };
+    }))
+    .enter().append("rect")
      .attr("fill-opacity", 0)
      .transition().duration(1000)
      .attr("fill-opacity", 1)
      .attr("height", 8)
      .attr("x", function(d) { return d.x0; })
-     .attr("width", function(d) { console.log(d.x1-d.x0);  if(Math.abs(d.x1-d.x0) > 480) return d.hope; else return Math.abs(d.x1-d.x0); })
+     .attr("width", function(d) { /*console.log(d.x1-d.x0);*/  if(Math.abs(d.x1-d.x0) > 480) return d.hope; else return Math.abs(d.x1-d.x0); })
      .style("fill", function(d) { return d.z; });
      g.call(xAxis).append("text")
      .attr("class", "caption")
@@ -206,6 +205,7 @@ function refresh() {
             } else if (jsonArrayCounter == 14) {
               if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
                 this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen);
+                console.log("inside map render: " + d.properties.fourteen)
               } else {
                 this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
               }
@@ -372,27 +372,32 @@ function getToolTipLabel(d) {
 
   if (this.year=="2010"){
     year_data = d.values[0].properties.ten;
+    console.log("2010: " + year_data);
   }
 
   else if (this.year=="2011"){
     year_data = d.values[0].properties.eleven;
+    console.log("2011: " + year_data);
   }
 
   else if (this.year=="2012"){
     year_data = d.values[0].properties.twelve;
+    console.log("2012: " + year_data);
   }
 
  else if (this.year=="2013"){
     year_data = d.values[0].properties.thirteen;
+    console.log("2013: " + year_data);
   }
   else if (this.year=="2014"){
     year_data = d.values[0].properties.fourteen;
+    console.log("2014: " + year_data);
   }
 
 
  var finalLabel = "<center><b>"+legendText+"</b></center><br/>"
-                        +"<b>Year</b><hideText>___di___</hideText>:"+this.year+"<br/>"
-                        +"<b>Total</b><hideText>_____L ii</hideText>:<font color='" + label_color + "'>"+sign+year_data+"<br/>";
+                        +"<b>Year</b><hideText>___di___</hideText>: <b>"+this.year+"</b><br/>"
+                        +"<b>Total</b><hideText>_____L ii</hideText>: <font color='" + label_color + "'><b>"+sign+year_data+"</b><br/>";
 
   return finalLabel;
 }
@@ -584,6 +589,7 @@ update = function() {
             } else if (jsonArrayCounter == 14) {
               if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
                 this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen);
+                console.log("inside map render update: " + d.properties.fourteen)
               } else {
                 this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
               }
