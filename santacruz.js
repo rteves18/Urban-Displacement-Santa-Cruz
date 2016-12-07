@@ -10,6 +10,8 @@ var properties_year;
 var current_data = [];
 var current_json_file = 0;
 var year = "2010";
+var sign = "";
+var label_color = "#2756a3";
 var json_files = ['sc_housingUnit.json','sc_tenure_total.json','sc_median_contract_rent.json',
                   'sc_median_value.json','sc_median_income.json'];
 var fieldtest = ['ten','eleven','twelve','thirteen','fourteen'];
@@ -268,7 +270,7 @@ var year_data;
                 + "<table><tr><th>Year</th><th>Total</th></tr>"
                 + "<tr>" + "<tr><th>"
                 +this.year
-                +"</th><th><font color ='#b30000'>" 
+                +"</th><th><font color ='" + label_color + "'>" + sign 
                 + year_data;
     
     var values = "<br/>" + d.values[0].properties.ten 
@@ -305,30 +307,40 @@ document.getElementById("myList").onchange = function() {
     current_json_file = 0;
     color = orange_color;
     legendText = "Housing Unit";
+    sign = "";
+    label_color= "#2756a3";
     refresh();
   } else if (this.value == "median_contract_rent") {
     //current_data = json_files[2];
     current_json_file = 2;
     color = red_color;
-    legendText = "Median Contract Rent (USD)";
+    legendText = "Median Rent (USD)";
+    sign = "$";
+    label_color = "#006837";
     refresh();       
   } else if (this.value == "median_value") {
     //current_data = json_files[3];
     current_json_file = 3;
     color = yellow_color;
     legendText = "Median Value (USD)";
+    sign = "$";
+    label_color = "#006837";
     refresh();            
   } else if (this.value == "median_income") {
     //current_data = json_files[4];
     current_json_file = 4;
     color = purple_color;
     legendText = "Median Income (USD)";
+    sign = "$";
+    label_color = "#006837";
     refresh();       
   } else if (this.value == "tenure") {
     //current_data = json_files[1];
     current_json_file = 1;
     color = green_color;
-    legendText = "Tenure (Years)";
+    legendText = "Tenure";
+    sign = "";
+    label_color = "#2756a3";
     refresh();       
   } else {
      alert("Error: option data unavailable");
