@@ -4,10 +4,15 @@ var showBoundary = true;
 var firstLoad = true;
 var current_value_dropdown = "housing_unit";
 var toolTipLabel;
+var tracts;
 // Loading Up the Data
 var legendText;
+var county;
 var properties_year;
 var current_json_file = 0;
+var current_data = [];
+var valuesMap = {};
+var current_data_year;
 var year = "2010";
 var sign = "";
 var label_color = "#2756a3";
@@ -129,6 +134,7 @@ function refresh() {
       };
   }))
   .enter().append("rect")
+  .transition().duration(1000)
     .attr("height", 8)
     .attr("x", function(d) { return d.x0; })
     .attr("width", function(d) { return d.x1 - d.x0; })
@@ -138,11 +144,13 @@ function refresh() {
     .attr("y", -6)
     .text(legendText);
 
+
   // Loads the json files to render map
   d3.json(json_files[current_json_file], function(error, sc){
-    
+    this.county = sc;
+
     if (error) throw error;
-    var tracts = topojson.feature(sc, sc.objects.sctracts);
+    this.tracts = topojson.feature(sc, sc.objects.sctracts);
     var tooltip;  
     // Clip tracts to land.
     svg.append("defs").append("clipPath")
@@ -154,7 +162,6 @@ function refresh() {
     // Individual tracts for tool tip.
     
     // Group tracts by color for faster rendering.
-      var valuesMap = {};
       svg.append("g")
         .attr("class", "tract")
         .attr("clip-path", "url(#clip-land)")
@@ -162,19 +169,24 @@ function refresh() {
         .data(d3.nest()
           .key(function(d) {
             if (jsonArrayCounter == 10) {
-              valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+              this.valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+              this.current_data_year=d.properties.ten;
               return d.properties.ten; 
             } else if (jsonArrayCounter == 11) {
-              valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
+              this.valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
+              this.current_data_year=d.properties.eleven;
               return d.properties.eleven; 
             } else if (jsonArrayCounter == 12) {
-              valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
+              this.valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
+              this.current_data_year=d.properties.twelve;
               return d.properties.twelve; 
             } else if (jsonArrayCounter == 13) {
-              valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
+              this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
+              this.current_data_year=d.properties.thirteen;
               return d.properties.thirteen; 
             } else if (jsonArrayCounter == 14) {
-              valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
+              this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
+              this.current_data_year=d.properties.fourteen;
               return d.properties.fourteen; 
             } 
           })
@@ -422,5 +434,92 @@ update = function() {
             break;
     }
 
-    refresh();
+    var sc = this.county;
+    // Group tracts by color for faster rendering.
+    var obj = 
+      svg.append("g")
+        .attr("class", "tract")
+        .attr("clip-path", "url(#clip-land)");
+
+      obj.selectAll("path")
+        .data(d3.nest()
+          .key(function(d) {
+            if (jsonArrayCounter == 10) {
+              this.valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+              this.current_data_year=d.properties.ten;
+              return d.properties.ten; 
+            } else if (jsonArrayCounter == 11) {
+              this.valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
+              this.current_data_year=d.properties.eleven;
+              return d.properties.eleven; 
+            } else if (jsonArrayCounter == 12) {
+              this.valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
+              this.current_data_year=d.properties.twelve;
+              return d.properties.twelve; 
+            } else if (jsonArrayCounter == 13) {
+              this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
+              this.current_data_year=d.properties.thirteen;
+              return d.properties.thirteen; 
+            } else if (jsonArrayCounter == 14) {
+              this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
+              this.current_data_year=d.properties.fourteen;
+              return d.properties.fourteen; 
+            } 
+          })
+          .entries(tracts.features.filter(function(d) {
+            return d.properties.area; 
+          }))             
+        )
+      .enter().append("path")
+        .attr("fill-opacity", 0)
+        .transition().duration(3000)
+        .attr("fill-opacity", 1)
+        .style("fill", function(d) { return valuesMap[d.key]; })
+        .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); })
+        ;
+
+      obj
+        .selectAll("path")
+        .data(d3.nest()
+          .key(function(d) {
+            if (jsonArrayCounter == 10) {
+              return d.properties.ten; 
+            } else if (jsonArrayCounter == 11) {
+              return d.properties.eleven; 
+            } else if (jsonArrayCounter == 12) {
+              return d.properties.twelve; 
+            } else if (jsonArrayCounter == 13) {
+              return d.properties.thirteen; 
+            } else if (jsonArrayCounter == 14) {
+              return d.properties.fourteen; 
+            } 
+          })
+          .entries(tracts.features.filter(function(d) {
+            return d.properties.area; 
+          }))             
+        )
+        .on("mouseover", function(d){
+            toolTipLabel = getToolTipLabel(d);
+            var totalPopulationInGroup = 0;
+            tooltip = d3.select("body")
+                .append("div")
+                .attr("class", "tooltip")
+                .style("position", "absolute")
+                .style("z-index", "10")
+                .style("visibility", "hidden")
+                .html(toolTipLabel);   
+            return tooltip.style("visibility", "visible");
+        })
+        .on("mousemove", function(d){
+            return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+        })
+        .on("mouseout", function(d){
+            return tooltip.style("visibility", "hidden")
+        });
+      if(showBoundary){
+      svg.append("path")
+        .datum(topojson.mesh(sc, sc.objects.sctracts, function(a, b) { return a !== b; }))
+        .attr("class", "county-border")
+        .attr("d", path);
+    }
 };
