@@ -13,6 +13,9 @@ var sign = "";
 var label_color = "#2756a3";
 var json_files = ['sc_housingUnit.json','sc_tenure_total.json','sc_median_contract_rent.json',
                   'sc_median_value.json','sc_median_income.json'];
+
+var tooltip_json_files = ['sc_tenure_onwer.json','sc_tenure_renter.json'];
+
 var fieldtest = ['ten','eleven','twelve','thirteen','fourteen'];
 var counter = 0;
 
@@ -239,59 +242,59 @@ function updateData() {
 
 function getToolTipLabel(d) {
 
-var year_data;
+  var year_data;
 
-    if (this.year=="2010"){
-      year_data = d.values[0].properties.ten;
-    }
+  if (this.year=="2010"){
+    year_data = d.values[0].properties.ten;
+  }
 
-    else if (this.year=="2011"){
-      year_data = d.values[0].properties.eleven;
-    }
+  else if (this.year=="2011"){
+    year_data = d.values[0].properties.eleven;
+  }
 
-    else if (this.year=="2012"){
-      year_data = d.values[0].properties.twelve;
-    }
+  else if (this.year=="2012"){
+    year_data = d.values[0].properties.twelve;
+  }
 
-    else if (this.year=="2013"){
-      year_data = d.values[0].properties.thirteen;
-    }
-    else if (this.year=="2014"){
-      year_data = d.values[0].properties.fourteen;
-    }
-   
+  else if (this.year=="2013"){
+    year_data = d.values[0].properties.thirteen;
+  }
+  else if (this.year=="2014"){
+    year_data = d.values[0].properties.fourteen;
+  }
 
-    var finalLabel = "<strong><div style='text-align:center;'>" +  
-                   legendText
-                + "</div></strong>"
-                //
-                + "<table><tr><th>Year</th><th>Total</th></tr>"
-                + "<tr>" + "<tr><th>"
-                +this.year
-                +"</th><th><font color ='" + label_color + "'>" + sign 
-                + year_data;
-    
-    var values = "<br/>" + d.values[0].properties.ten 
-                + "<br/>" + d.values[0].properties.eleven  
-                + "<br/>" + d.values[0].properties.twelve 
-                + "<br/>" + d.values[0].properties.thirteen 
-                + "<br/>" + d.values[0].properties.fourteen;
-   /*if (this.current_value_dropdown == "housing_unit") {
-      return "housing_unit<br/>" +"key: "+ d.key + "<br/>values: " + values;
-   } else if (this.current_value_dropdown == "median_contract_rent") {
-      return "median_contract_rent<br/>" +"key: "+ d.key + "<br/>values: "+values;    
-   } else if (this.current_value_dropdown == "median_value") {
-      return "median_value<br/>" +"key: "+ d.key +"<br/>values: "+ values;      
-   } else if (this.current_value_dropdown == "median_year_miubt") {
-      return "median_year_miubt<br/>" +"key: "+ d.key +"<br/>values: "+ values;     
-   } else if (this.current_value_dropdown == "median_income") {
-      return "median_income<br/>" +"key: "+ d.key +"<br/>values: " + values;    
-   } else if (this.current_value_dropdown == "tenure") {
-      return "tenure<br/>" +"key: "+ d.key +"<br/>values: "+ values;      
-   } else {
-       alert("Error: option data unavailable: " + this.current_value_dropdown);
-   } */   
-    return finalLabel;
+
+  var finalLabel = "<strong><div style='text-align:center;'>" +  
+                 legendText
+              + "</div></strong>"
+              //
+              + "<table><tr><th>Year</th><th>Total</th></tr>"
+              + "<tr>" + "<tr><th>"
+              +this.year
+              +"</th><th><font color ='" + label_color + "'>" + sign 
+              + year_data;
+
+  var values = "<br/>" + d.values[0].properties.ten 
+              + "<br/>" + d.values[0].properties.eleven  
+              + "<br/>" + d.values[0].properties.twelve 
+              + "<br/>" + d.values[0].properties.thirteen 
+              + "<br/>" + d.values[0].properties.fourteen;
+ /*if (this.current_value_dropdown == "housing_unit") {
+    return "housing_unit<br/>" +"key: "+ d.key + "<br/>values: " + values;
+ } else if (this.current_value_dropdown == "median_contract_rent") {
+    return "median_contract_rent<br/>" +"key: "+ d.key + "<br/>values: "+values;    
+ } else if (this.current_value_dropdown == "median_value") {
+    return "median_value<br/>" +"key: "+ d.key +"<br/>values: "+ values;      
+ } else if (this.current_value_dropdown == "median_year_miubt") {
+    return "median_year_miubt<br/>" +"key: "+ d.key +"<br/>values: "+ values;     
+ } else if (this.current_value_dropdown == "median_income") {
+    return "median_income<br/>" +"key: "+ d.key +"<br/>values: " + values;    
+ } else if (this.current_value_dropdown == "tenure") {
+    return "tenure<br/>" +"key: "+ d.key +"<br/>values: "+ values;      
+ } else {
+     alert("Error: option data unavailable: " + this.current_value_dropdown);
+ } */   
+  return finalLabel;
 }
 
 d3.select(self.frameElement).style("height", height + "px");
