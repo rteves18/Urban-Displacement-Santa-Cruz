@@ -20,17 +20,17 @@ var fieldtest = ['ten','eleven','twelve','thirteen','fourteen'];
 var counter = 0;
 
 //add for legend scale color reference
-var hos = colorbrewer.Oranges[9];
+var hos = colorbrewer.Oranges[8];
 var tnr = colorbrewer.Greens[9]; 
-var rnt = colorbrewer.Purples[9];
-var val = colorbrewer.Reds[9];
-var ict = colorbrewer.PuOr[9];
+var rnt = colorbrewer.Reds[9];
+var val = colorbrewer.Blues[9];
+var ict = colorbrewer.Purples[9];
 
-var hosText = ["0-40K", "40K-80K", "80K-120K", "120K-160K","160K-200K","200K+"];
-var tnrText = ["0-60", "60-70", "70-80", "80-90", "90-100"];
-var rntText = ["$0-$5000", "$5000-15k", "$15k-$40k", "$40k-$80k", "$80k-$100k"];
-var valText = ["0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60+"];
-var ictText = ["0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60+"];
+var hosText = ["0-10", "10-50", "50-100", "100-500","500-1000","1000-2000","2000-5000","5000+"];
+var tnrText = ["0-10", "10-100", "100-200", "200-300", "300-400", "400-600", "600-800", "800-1000","1000+"];
+var rntText = ["$0-$600", "$600-$700", "$700-$900", "$900-$1200", "$1200-$1400", "$1400-$1600", "$1600-$1800", "$1800-$2K", "2K+"];
+var valText = ["0-$200K", "$200K-$300K", "$300K-$400K", "$400K-$500K", "$500K-$600K", "$600K-$700K", "$700K-$800K", "800K-$900K", "$900K+"];
+var ictText = ["0-$30K", "30K-$40K", "$40K-$50K", "$50K-$60K", "$60K-$70K", "$70-$80K", "$80K-$90K", "$90K-$100K", "$100K+"];
 
 var jsonArrayCounter = 10;
 var running = false;
@@ -75,7 +75,7 @@ var red_color = d3.scale.threshold()
 // Yellow color scheme - Median Value
 var yellow_color = d3.scale.threshold()
   .domain([1000, 5000, 25000, 50000, 100000, 250000, 500000, 900000])
-  .range(['#ffffe5','#fff7bc','#fee391','#fec44f','#fe9929','#ec7014','#cc4c02','#993404','#662506']);
+  .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
 
 var color = orange_color;
 
@@ -253,7 +253,7 @@ function AppendLegend(cScale, brewSet, textArray,cssClass,opacity){
         .data(cScale.domain(),function(d){return d;})
         .enter()
         .append("g")
-        .attr("transform", "translate(-550,40)")
+        .attr("transform", "translate(-580,40)")
         .attr("class", cssClass)
         .attr("opacity",opacity)
         .append("rect")//55*i
