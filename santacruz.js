@@ -113,8 +113,8 @@ function refresh() {
   }
   
   //***Uncomment or Comment to see bug**//  
-  g = svg.append("g")
-       .attr("class", "key");
+  /*g = svg.append("g")
+       .attr("class", "key");*/
   //************************************//
 
 
@@ -339,6 +339,18 @@ function AppendLegend(cScale, brewSet, textArray,cssClass,opacity){
 }
 
 function ShowLegendHRVIT(hu,rt,vl,ic,tn){
+    var obj = 
+      svg.append("g")
+        .attr("class", "tract")
+        .attr("clip-path", "url(#clip-land)");
+    if (typeof(Worker) !== "undefined") {
+      if (this.county != null) {
+        var durationTract = 1000;
+        updateTractColorAndBorders(this.county , obj, durationTract)
+      }
+    } else {
+        // Sorry! No Web Worker support..
+    }
     d3.selectAll(".hoslegend")
         .transition(1000)
         .style("opacity",hu);
@@ -503,47 +515,8 @@ $("#slider").on("change", function(){
     $("button").html("Play");
 });
 
-function first_Load(){
-    
-}
-	
-update = function() {
-
-    this.jsonArrayCounter++;
-    if (jsonArrayCounter == 14) {
-        $("button").html("Play");    
-        clearInterval(timer);
-        running = false;
-    } else if (jsonArrayCounter > 14) {
-        jsonArrayCounter=10;        
-    }
-    
-
-    switch ($("#slider").val()) {
-        case "2010":
-            this.year = "2010";
-            break;
-        case "2011":
-            this.year = "2011";
-            break;
-        case "2012":
-            this.year = "2012";
-            break;
-        case "2013":
-            this.year = "2013";
-            break;
-        case "2014":
-            this.year = "2014";
-            break;
-    }
-
-    var sc = this.county;
-    // Group tracts by color for faster rendering.
-    var obj = 
-      svg.append("g")
-        .attr("class", "tract")
-        .attr("clip-path", "url(#clip-land)");
-
+function updateTractColorAndBorders(sc , obj, durationTract){
+  var tracts = topojson.feature(sc, sc.objects.sctracts);
       obj.selectAll("path")
         .data(d3.nest()
           .key(function(d) {
@@ -595,7 +568,7 @@ update = function() {
         )
       .enter().append("path")
         .attr("fill-opacity", 0)
-        .transition().duration(3000)
+        .transition().duration(durationTract)
         .attr("fill-opacity", 1)
         .style("fill", function(d) { return valuesMap[d.key]; })
         .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); })
@@ -645,4 +618,44 @@ update = function() {
         .attr("class", "county-border")
         .attr("d", path);
     }
+}
+	
+update = function() {
+
+    this.jsonArrayCounter++;
+    if (jsonArrayCounter == 14) {
+        $("button").html("Play");    
+        clearInterval(timer);
+        running = false;
+    } else if (jsonArrayCounter > 14) {
+        jsonArrayCounter=10;        
+    }
+    
+
+    switch ($("#slider").val()) {
+        case "2010":
+            this.year = "2010";
+            break;
+        case "2011":
+            this.year = "2011";
+            break;
+        case "2012":
+            this.year = "2012";
+            break;
+        case "2013":
+            this.year = "2013";
+            break;
+        case "2014":
+            this.year = "2014";
+            break;
+    }
+
+    // Group tracts by color for faster rendering.
+    var obj = 
+      svg.append("g")
+        .attr("class", "tract")
+        .attr("clip-path", "url(#clip-land)");
+
+    updateTractColorAndBorders(this.county , obj, 3000);
+
 };
