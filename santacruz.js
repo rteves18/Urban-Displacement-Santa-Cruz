@@ -9,6 +9,8 @@ var legendText;
 var properties_year;
 var current_json_file = 0;
 var year = "2010";
+var sign = "";
+var label_color = "#2756a3";
 var json_files = ['sc_housingUnit.json','sc_tenure_total.json','sc_median_contract_rent.json',
                   'sc_median_value.json','sc_median_income.json'];
 var fieldtest = ['ten','eleven','twelve','thirteen','fourteen'];
@@ -237,12 +239,43 @@ function updateData() {
 
 function getToolTipLabel(d) {
 
-    var finalLabel = "<strong><div style='text-align:center;'>" +  "County" + "</div></strong><strong><div style='text-align:center;'>" +  "Tract"
+var year_data;
+
+    if (this.year=="2010"){
+      year_data = d.values[0].properties.ten;
+    }
+
+    else if (this.year=="2011"){
+      year_data = d.values[0].properties.eleven;
+    }
+
+    else if (this.year=="2012"){
+      year_data = d.values[0].properties.twelve;
+    }
+
+    else if (this.year=="2013"){
+      year_data = d.values[0].properties.thirteen;
+    }
+    else if (this.year=="2014"){
+      year_data = d.values[0].properties.fourteen;
+    }
+   
+
+    var finalLabel = "<strong><div style='text-align:center;'>" +  
+                   legendText
                 + "</div></strong>"
-                + "<table><tr><th>Year</th><th>Value</th><th>Income</th></tr>"
-                + "<tr>" + "<tr><th>"+this.year+"</th><th><font color ='#b30000'>" + d.values[0].properties.thirteen
-                + "</font></th><th><font color='#006837'>$"+ d.values[0].properties.ten;
-    var values = "<br/>" + d.values[0].properties.ten + "<br/>" + d.values[0].properties.eleven  + "<br/>" + d.values[0].properties.twelve + "<br/>" + d.values[0].properties.thirteen + "<br/>" + d.values[0].properties.fourteen;
+                //
+                + "<table><tr><th>Year</th><th>Total</th></tr>"
+                + "<tr>" + "<tr><th>"
+                +this.year
+                +"</th><th><font color ='" + label_color + "'>" + sign 
+                + year_data;
+    
+    var values = "<br/>" + d.values[0].properties.ten 
+                + "<br/>" + d.values[0].properties.eleven  
+                + "<br/>" + d.values[0].properties.twelve 
+                + "<br/>" + d.values[0].properties.thirteen 
+                + "<br/>" + d.values[0].properties.fourteen;
    /*if (this.current_value_dropdown == "housing_unit") {
       return "housing_unit<br/>" +"key: "+ d.key + "<br/>values: " + values;
    } else if (this.current_value_dropdown == "median_contract_rent") {
@@ -271,26 +304,36 @@ document.getElementById("myList").onchange = function() {
     current_json_file = 0;
     color = orange_color;
     legendText = "Housing Unit";
+    sign = "";
+    label_color= "#2756a3";
     refresh();
   } else if (this.value == "median_contract_rent") {
     current_json_file = 2;
     color = red_color;
-    legendText = "Median Contract Rent (USD)";
+    legendText = "Median Rent (USD)";
+    sign = "$";
+    label_color = "#006837";
     refresh();       
   } else if (this.value == "median_value") {
     current_json_file = 3;
     color = yellow_color;
     legendText = "Median Value (USD)";
+    sign = "$";
+    label_color = "#006837";
     refresh();            
   } else if (this.value == "median_income") {
     current_json_file = 4;
     color = purple_color;
     legendText = "Median Income (USD)";
+    sign = "$";
+    label_color = "#006837";
     refresh();       
   } else if (this.value == "tenure") {
     current_json_file = 1;
     color = green_color;
-    legendText = "Tenure (Years)";
+    legendText = "Tenure";
+    sign = "";
+    label_color = "#2756a3";
     refresh();       
   } else {
     alert("Error: option data unavailable");
