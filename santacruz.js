@@ -52,11 +52,6 @@ var orange_color = d3.scale.threshold()
   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
   .range(['#fff5eb','#fee6ce','#fdd0a2','#fdae6b','#fd8d3c','#f16913','#d94801','#a63603','#7f2704']);
 
-// // Blue color scheme - Median Year MIUBT
-// var blue_color = d3.scale.threshold()
-//   .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
-//   .range(["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]);
-
 // Green color scheme - Tenure
 var green_color = d3.scale.threshold()
   .domain([10, 100, 200, 300, 400, 600, 800, 1000])
@@ -99,19 +94,26 @@ var svg = d3.select("body").append("svg")
 refresh(); //refresh map
 //Refresh Geomap function    
 function refresh() {
-    
   if (firstLoad) {
     legendText = "Housing Unit";
     firstLoad = false;
     cssLegend = "hoslegend";
     select_colors=orange_color;  
     ShowLegendHRVIT(1,0,0,0);
+    AppendLegend(orange_color,hos,hosText,"hoslegend",1);
   } 
-  // else {
-  //   g.selectAll("*")
-  //      .remove();
-  // }
-    
+  else {
+    g.selectAll("*")
+       .remove();
+  }
+  
+  //***Uncomment or Comment to see bug**//  
+  g = svg.append("g")
+        .attr("class", "key");
+  //************************************//
+
+
+  //***OLD LEGEND***
   // g = svg.append("g")
   //   .attr("class", "key")
   //   .attr("transform", "translate(440,40)");
@@ -150,8 +152,6 @@ function refresh() {
       .append("path")
         .datum(topojson.feature(sc, sc.objects.sctracts))
         .attr("d", path);
-        if(firstLoad)
-          first_Load();
     // Individual tracts for tool tip.
     
     // Group tracts by color for faster rendering.
@@ -240,22 +240,14 @@ function updateData() {
 
 function AppendLegend(cScale, brewSet, textArray,cssClass,opacity){
     var legendHeight=600;
-      //   svg.append("g")
-      //   .attr("class", "key")
-      //   .data(color.range().map(function(d, i) { return {
-      //   x0: i ? x(color.domain()[i - 1]) : x.range()[0],
-      //   x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
-      //   z: d
-      // };
-      // }))
-      //   .style("fill", function(d) { return d.z; });
-        svg.selectAll(".legend")
+
+    svg.selectAll(".legend")
         .data(cScale.domain(),function(d){return d;})
         .enter()
         .append("g")
-        .attr("transform", "translate(-580,40)")
         .attr("class", cssClass)
         .attr("opacity",opacity)
+        .attr("transform", "translate(-580,40)")
         .append("rect")//55*i
         //sets the location and width of each colored rectangles and adds the iteratively
         .attr("x", 600)
@@ -300,16 +292,16 @@ function AppendLegend(cScale, brewSet, textArray,cssClass,opacity){
                 case "hoslegend":
                     return "Housing Unit Total per Mile";
                     break;
+                case "rntlegend":
+                    return "Median Contract Rent ($USD)";
+                    break;
                 case "tnrlegend":
                     return "Tenure Total per Mile";
-                    break;
-                case "rntlegend":
-                    return "Median Contract Rent (USD)";
                 case "vallegend":
-                    return "Median House Value (USD)";
+                    return "Median House Value ($USD)";
                     break;
                 case "ictlegend":
-                    return "Median Household Income (USD)";
+                    return "Median Household Income ($USD)";
                     break;
             }
         })
@@ -431,7 +423,7 @@ document.getElementById("myList").onchange = function() {
 
 $("button").on("click", function() {
 		
-    var duration = 1000,
+    var duration = 3000,
         maxstep = 2014,
         minstep = 2010;
     
