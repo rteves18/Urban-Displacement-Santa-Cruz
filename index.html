@@ -1,112 +1,90 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+    <meta charset="utf-8">
 
-<head>
-    <link rel="stylesheet" type="text/css" href="santacruz.css" />
-    <script src="//d3js.org/d3.v3.min.js"></script>
-    <script src="//d3js.org/topojson.v1.min.js"></script>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <head>
+        <link rel="stylesheet" type="text/css" href="santacruz.css" />
+        <script src="//d3js.org/d3.v3.min.js"></script>
+        <script src="//d3js.org/topojson.v1.min.js"></script>
+        <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
 
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="default_js.js"></script>
-</head>
-
-<body>
-    <nav class="navbar navbar-default navbar-fixed-top map-nav">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Urban Displacement in Santa Cruz County</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="https://github.com/rteves18/Urban-Displacement-Santa-Cruz"><i class="fa fa-github fa-2" aria-hidden="true"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container-full">
-        <div class="row">
-            <svg class="map-container">
-                <div>
-
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top map-nav">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="#">Urban Displacement in Santa Cruz County</a> </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav"> </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="https://github.com/rteves18/Urban-Displacement-Santa-Cruz"><i class="fa fa-github fa-2" aria-hidden="true"></i></a></li>
+                    </ul>
                 </div>
-
-
-                <script type="text/javascript" src="santacruz.js"></script>
-            </svg>
-
-            <div class="map-dropdown">
-                <select id="myList">
-                    <option value="housing_unit">Housing Unit</option>
-                    <option value="tenure">Tenure</option>
-                    <option value="median_contract_rent">Median Contract Rent</option>
-                    <option value="median_value">Median Value</option>
-                    <option value="median_income">Household Income Total</option>
-                </select>
             </div>
-            <div class="map-top-left">
-                <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> </a>
-                <br>
-                <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-minus"></span> </a>
-
-            </div>
-            <div class="map-low-left">
-                <!--Toggle color button-->
-                <input class="color" type="button" name="color_change" value="Toggle Color">
-                <!--Toggle show boundaries button-->
-                <input class="boundary" type="button" name="boundary_change" value="Toggle Boundary">
-                <div id="option">
-                    <input name="updateButton" type="button" value="Update" onclick="updateData()" />
+        </nav>
+        <div class="container-full">
+            <div class="row">
+                <svg class="map-container"></svg>
+                <div class="map-dropdown">
+                    <select id="myList">
+                        <option value="housing_unit">Housing Unit</option>
+                        <option value="tenure">Tenure</option>
+                        <option value="median_contract_rent">Median Contract Rent</option>
+                        <option value="median_value">Median Value</option>
+                        <option value="median_income">Household Income Total</option>
+                    </select>
                 </div>
-
+                <div class="map-top-left"> <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> </a>
+                    <br> <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-minus"></span> </a>
+                    <div>
+                        <input id="slider" type="range" min="2010" max="2014" value="2010" step="1" style="top: 0px;" /> <span id="range">2010</span>
+                        <button name="play" id="play">Play</button>
+                    </div>
+                </div>
+                <div class="map-low-left">
+                    <!--Toggle color button-->
+                    <input class="color" type="button" name="color_change" value="Toggle Color">
+                    <!--Toggle show boundaries button-->
+                    <input class="boundary" type="button" name="boundary_change" value="Toggle Boundary">
+                    <div id="option">
+                        <input name="updateButton" type="button" value="Update" onclick="updateData()" /> </div>
+                </div>
+                <div class="expand-info"> <a onclick="expandInfo();" class="btn btn-info">
+		See <span class="glyphicon glyphicon-chevron-up"></span> Info</a></div>
             </div>
-            <div class="expand-info">
-                <a onclick="expandInfo();" class="btn btn-info">
-		See <span class="glyphicon glyphicon-chevron-down"></span> Info</a></div>
-
         </div>
-    </div>
-
-    <div class="main-wrapper">
-        <div class="main-container container">
-            <div class="row">
-                <section class="col-sm-12">
-                    <h1>What is Urban Displacement?</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ornare ligula id ex commodo fermentum. In condimentum tortor quis odio tempus sollicitudin tristique vel nulla. Cras pretium, tortor a efficitur volutpat, turpis odio sagittis urna, eget posuere risus nulla vel lacus. Aenean sodales congue dui, et blandit dui interdum eu. Maecenas fermentum erat sit amet luctus finibus. Etiam fermentum ut magna non lacinia. Ut dolor justo, tincidunt dictum gravida a, finibus a massa. Sed consequat aliquet orci, nec egestas ipsum congue non. Donec fermentum, nisi sed venenatis molestie, massa sapien hendrerit mauris, a faucibus tellus est quis lectus. Praesent sit amet interdum diam. Nulla condimentum vehicula libero, ac euismod purus vehicula sagittis. Etiam nec lorem vitae sapien pretium tincidunt. Cras a venenatis turpis. Quisque a risus ullamcorper, tempor ipsum eu, egestas metus. Donec ultrices vel nulla gravida dictum. Etiam ornare hendrerit elit, nec ornare odio maximus ut.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ornare ligula id ex commodo fermentum. In condimentum tortor quis odio tempus sollicitudin tristique vel nulla. Cras pretium, tortor a efficitur volutpat, turpis odio sagittis urna, eget posuere risus nulla vel lacus. Aenean sodales congue dui, et blandit dui interdum eu. Maecenas fermentum erat sit amet luctus finibus. Etiam fermentum ut magna non lacinia. Ut dolor justo, tincidunt dictum gravida a, finibus a massa. Sed consequat aliquet orci, nec egestas ipsum congue non. Donec fermentum, nisi sed venenatis molestie, massa sapien hendrerit mauris, a faucibus tellus est quis lectus. Praesent sit amet interdum diam. Nulla condimentum vehicula libero, ac euismod purus vehicula sagittis. Etiam nec lorem vitae sapien pretium tincidunt. Cras a venenatis turpis. Quisque a risus ullamcorper, tempor ipsum eu, egestas metus. Donec ultrices vel nulla gravida dictum. Etiam ornare hendrerit elit, nec ornare odio maximus ut.</p>
-                </section>
+        <div class="main-wrapper">
+            <div class="main-container container">
+                <div class="row">
+                    <section class="col-sm-12">
+                        <h1>What is Urban Displacement?</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ornare ligula id ex commodo fermentum. In condimentum tortor quis odio tempus sollicitudin tristique vel nulla. Cras pretium, tortor a efficitur volutpat, turpis odio sagittis urna, eget posuere risus nulla vel lacus. Aenean sodales congue dui, et blandit dui interdum eu. Maecenas fermentum erat sit amet luctus finibus. Etiam fermentum ut magna non lacinia. Ut dolor justo, tincidunt dictum gravida a, finibus a massa. Sed consequat aliquet orci, nec egestas ipsum congue non. Donec fermentum, nisi sed venenatis molestie, massa sapien hendrerit mauris, a faucibus tellus est quis lectus. Praesent sit amet interdum diam. Nulla condimentum vehicula libero, ac euismod purus vehicula sagittis. Etiam nec lorem vitae sapien pretium tincidunt. Cras a venenatis turpis. Quisque a risus ullamcorper, tempor ipsum eu, egestas metus. Donec ultrices vel nulla gravida dictum. Etiam ornare hendrerit elit, nec ornare odio maximus ut.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ornare ligula id ex commodo fermentum. In condimentum tortor quis odio tempus sollicitudin tristique vel nulla. Cras pretium, tortor a efficitur volutpat, turpis odio sagittis urna, eget posuere risus nulla vel lacus. Aenean sodales congue dui, et blandit dui interdum eu. Maecenas fermentum erat sit amet luctus finibus. Etiam fermentum ut magna non lacinia. Ut dolor justo, tincidunt dictum gravida a, finibus a massa. Sed consequat aliquet orci, nec egestas ipsum congue non. Donec fermentum, nisi sed venenatis molestie, massa sapien hendrerit mauris, a faucibus tellus est quis lectus. Praesent sit amet interdum diam. Nulla condimentum vehicula libero, ac euismod purus vehicula sagittis. Etiam nec lorem vitae sapien pretium tincidunt. Cras a venenatis turpis. Quisque a risus ullamcorper, tempor ipsum eu, egestas metus. Donec ultrices vel nulla gravida dictum. Etiam ornare hendrerit elit, nec ornare odio maximus ut.</p>
+                    </section>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="footer-wrapper">
-        <footer class="footer container">
-            <div class="row">
-
-            </div>
-        </footer>
-    </div>
-
-
-    <!-- Boostrap Javascript-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
-</body>
-
-
-<script type="text/javascript" src="santacruz.js"></script>
+        <div class="footer-wrapper">
+            <footer class="footer container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <br> Instructor: Suresh Lodha
+                        <br> CMPS 165: Data programming for Visualization
+                        <br> Fall 2016
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- Boostrap Javascript-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!--html5 slider-->
+        <script src="/html5slider.js"></script>
+        <script src="default_js.js"></script>
+        <script type="text/javascript" src="santacruz.js"></script>
+        <script src="https://github.com/shawnbot/d3-bootstrap/blob/master/d3-bootstrap.js"/>
+    </body>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html {
     overflow-x: hidden;
 }
@@ -39,6 +40,7 @@ svg {
     padding-top: 80px;
     padding-left: 150px;
     width: 100%;
+    z-index: 1000;
 }
 
 .map-low-left {
@@ -104,4 +106,50 @@ svg {
     border: 0px;
     border-radius: 8px;
     pointer-events: none;
+=======
+svg {
+  font: 10px sans-serif;
+}
+.caption {
+  font-weight: bold;
+}
+.key path {
+  display: none;
+}
+.key line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.county-border {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .3;
+}
+input{
+  position:relative;
+  top: 700px;
+}
+
+.tooltip {   
+  position: absolute;           
+            
+  width: 175x;                                   
+  padding: 10px;             
+  font: 12px sans-serif;        
+  background: rgba(176,196,222,0.7);   
+  border: 0px;      
+  border-radius: 8px;
+  pointer-events: none;         
+}
+
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    -webkit-border-radius: 15px;
+    background-color: #bbb;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#bbb), to(#888));
+    border: 1px solid #000;
+    height: 25px;
+    width: 25px;
+>>>>>>> f0709076cc5a8e211921d797cf26050717d24c40
 }
