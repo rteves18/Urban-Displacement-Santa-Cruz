@@ -53,17 +53,17 @@ var green_color = d3.scale.threshold()
 
 // Purple color scheme - Median Income
 var purple_color = d3.scale.threshold()
-  .domain([500, 1000, 2500, 50000, 100000, 130000, 150000, 200000])
+  .domain([30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000])
   .range(['#fcfbfd','#efedf5','#dadaeb','#bcbddc','#9e9ac8','#807dba','#6a51a3','#54278f','#3f007d']);
 
 // Red color scheme - Contract Rent
 var red_color = d3.scale.threshold()
-  .domain([1, 10, 50, 100, 500, 1000, 2000, 5000])
-  .range(['#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d']);
+  .domain([0, 600, 700, 900, 1200, 1400, 1600, 1800, 2000])
+  .range(['#000000','#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d']);
 
 // Yellow color scheme - Median Value
 var yellow_color = d3.scale.threshold()
-  .domain([1000, 5000, 25000, 50000, 100000, 250000, 500000, 900000])
+  .domain([200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000])
   .range(['#ffffe5','#fff7bc','#fee391','#fec44f','#fe9929','#ec7014','#cc4c02','#993404','#662506']);
 
 var color = orange_color;
@@ -169,23 +169,43 @@ function refresh() {
         .data(d3.nest()
           .key(function(d) {
             if (jsonArrayCounter == 10) {
-              this.valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.ten]=color(d.properties.ten);
+              } else {
+                this.valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+              }
               this.current_data_year=d.properties.ten;
               return d.properties.ten; 
             } else if (jsonArrayCounter == 11) {
-              this.valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.eleven]=color(d.properties.eleven);
+              } else {
+                this.valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
+              }
               this.current_data_year=d.properties.eleven;
               return d.properties.eleven; 
             } else if (jsonArrayCounter == 12) {
-              this.valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.twelve]=color(d.properties.twelve);
+              } else {
+                this.valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
+              }
               this.current_data_year=d.properties.twelve;
               return d.properties.twelve; 
             } else if (jsonArrayCounter == 13) {
-              this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen);
+              } else {
+                this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
+              }
               this.current_data_year=d.properties.thirteen;
               return d.properties.thirteen; 
             } else if (jsonArrayCounter == 14) {
-              this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen);
+              } else {
+                this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
+              }
               this.current_data_year=d.properties.fourteen;
               return d.properties.fourteen; 
             } 
@@ -283,11 +303,6 @@ var year_data;
                 +"</th><th><font color ='" + label_color + "'>" + sign 
                 + year_data;
     
-    var values = "<br/>" + d.values[0].properties.ten 
-                + "<br/>" + d.values[0].properties.eleven  
-                + "<br/>" + d.values[0].properties.twelve 
-                + "<br/>" + d.values[0].properties.thirteen 
-                + "<br/>" + d.values[0].properties.fourteen;
    /*if (this.current_value_dropdown == "housing_unit") {
       return "housing_unit<br/>" +"key: "+ d.key + "<br/>values: " + values;
    } else if (this.current_value_dropdown == "median_contract_rent") {
@@ -445,26 +460,46 @@ update = function() {
         .data(d3.nest()
           .key(function(d) {
             if (jsonArrayCounter == 10) {
-              this.valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.ten]=color(d.properties.ten);
+              } else {
+                this.valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+              }
               this.current_data_year=d.properties.ten;
               return d.properties.ten; 
             } else if (jsonArrayCounter == 11) {
-              this.valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.eleven]=color(d.properties.eleven);
+              } else {
+                this.valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
+              }
               this.current_data_year=d.properties.eleven;
               return d.properties.eleven; 
             } else if (jsonArrayCounter == 12) {
-              this.valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.twelve]=color(d.properties.twelve);
+              } else {
+                this.valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
+              }
               this.current_data_year=d.properties.twelve;
               return d.properties.twelve; 
             } else if (jsonArrayCounter == 13) {
-              this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen);
+              } else {
+                this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
+              }
               this.current_data_year=d.properties.thirteen;
               return d.properties.thirteen; 
             } else if (jsonArrayCounter == 14) {
-              this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen);
+              } else {
+                this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
+              }
               this.current_data_year=d.properties.fourteen;
               return d.properties.fourteen; 
-            } 
+            }  
           })
           .entries(tracts.features.filter(function(d) {
             return d.properties.area; 
