@@ -7,7 +7,6 @@ var toolTipLabel;
 // Loading Up the Data
 var legendText;
 var properties_year;
-var current_data = [];
 var current_json_file = 0;
 var year = "2010";
 var json_files = ['sc_housingUnit.json','sc_tenure_total.json','sc_median_contract_rent.json',
@@ -110,7 +109,6 @@ function refresh() {
   if (firstLoad) {
     legendText = "Housing Unit";
     firstLoad = false;
-    current_data = json_files[0]; // was housing_unit before
   } else {
     g.selectAll("*")
        .remove();
@@ -270,37 +268,32 @@ document.getElementById("myList").onchange = function() {
   jsonArrayCounter=10;
   current_value_dropdown=this.value;
   if (this.value == "housing_unit") {
-    //current_data = json_files[0];
     current_json_file = 0;
     color = orange_color;
     legendText = "Housing Unit";
     refresh();
   } else if (this.value == "median_contract_rent") {
-    //current_data = json_files[2];
     current_json_file = 2;
     color = red_color;
     legendText = "Median Contract Rent (USD)";
     refresh();       
   } else if (this.value == "median_value") {
-    //current_data = json_files[3];
     current_json_file = 3;
     color = yellow_color;
     legendText = "Median Value (USD)";
     refresh();            
   } else if (this.value == "median_income") {
-    //current_data = json_files[4];
     current_json_file = 4;
     color = purple_color;
     legendText = "Median Income (USD)";
     refresh();       
   } else if (this.value == "tenure") {
-    //current_data = json_files[1];
     current_json_file = 1;
     color = green_color;
     legendText = "Tenure (Years)";
     refresh();       
   } else {
-     alert("Error: option data unavailable");
+    alert("Error: option data unavailable");
   }
 };
 
