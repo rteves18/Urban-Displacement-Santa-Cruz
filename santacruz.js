@@ -469,6 +469,7 @@ document.getElementById("myList").onchange = function() {
     label_color= "#2756a3";
     ShowLegendHRVIT(0,0,0,0,0);
     hostnr = true;
+    svg.select(".key").remove();  
     refresh();
   } else if (this.value == "median_contract_rent") {
     current_json_file = 2;
@@ -478,7 +479,8 @@ document.getElementById("myList").onchange = function() {
     label_color = "#006837";
     ShowLegendHRVIT(0,1,0,0,0);
     hostnr = false;
-    refresh();       
+    refresh(); 
+    svg.select(".key").remove();      
   } else if (this.value == "median_value") {
     current_json_file = 3;
     color = yellow_color;
@@ -487,7 +489,8 @@ document.getElementById("myList").onchange = function() {
     label_color = "#006837";
     ShowLegendHRVIT(0,0,1,0,0);
     hostnr = false;
-    refresh();            
+    refresh();       
+    svg.select(".key").remove();     
   } else if (this.value == "median_income") {
     current_json_file = 4;
     color = purple_color;
@@ -497,6 +500,7 @@ document.getElementById("myList").onchange = function() {
     ShowLegendHRVIT(0,0,0,1,0);
     hostnr = false;
     refresh();       
+    svg.select(".key").remove();
   } else if (this.value == "tenure") {
     current_json_file = 1;
     color = green_color;
@@ -505,6 +509,7 @@ document.getElementById("myList").onchange = function() {
     label_color = "#2756a3";
     ShowLegendHRVIT(0,0,0,0,0);
     hostnr = true;
+    svg.select(".key").remove();  
     refresh();       
   } else {
     alert("Error: option data unavailable");
