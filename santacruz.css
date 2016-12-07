@@ -24,9 +24,8 @@ input{
 .tooltip {   
   position: absolute;           
   text-align: left;           
-  width: 175x;                  
-  height: 216px;                 
-  padding: 12px;             
+  width: 175x;                                   
+  padding: 10px;             
   font: 12px sans-serif;        
   background: lightsteelblue;   
   border: 0px;      
