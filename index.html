@@ -5,65 +5,69 @@
   <script src="//d3js.org/d3.v3.min.js"></script>
   <script src="//d3js.org/topojson.v1.min.js"></script>
   <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+
 </head>
 
 <body>
-  <h1 class='title'> Urban Displacement in Santa Cruz County</h1>
-  <p><b>Story Line<b/></p>
-  <p>The city of Santa Cruz and other parts of the Santa Cruz county has been known to be one of the most expensive places to live in of all of California. Home to many locals as well as UC Santa Cruz students and faculty; but with Santa Cruz being a vacation destination and neighboring the world famous Silicon Valley, the cost of living has only continued to increase each year. The following is a visual of keys factors that largely impact the communities within the County of Santa Cruz, ultimately resulting is various forms of Urban Displacement and Gentrification.</p>
-  
-  <div class='bar'>
-      <div class='year'>
+
+  <h1 class="title"> Urban Displacement in Santa Cruz County</h1>
+  <h2 class="by"> By Ryan Teves, Ky Nguyen, Karol-Josef Bustamante, and Meli Jemenez
+  </h2>
+  <div class="bar">
+      <input id="slider" class="bar" type="range" min="2010" max="2014" value="2010" step="1" style="top: 0px;"/>
       <span id="range">2010</span>
-      </div>
-      <input id="slider" type="range" min="2010" max="2014" value="2010" step="1" style="top: 0px;"/>
-      
       <button name="play" id="play">Play</button>    
-  </div>
+</div>
     
   <div>
-    <select id="myList" class='list'>
+    <select id="myList" class='myList'>
       <option value="housing_unit">Total Housing Unit</option>
       <option value="tenure">Total Tenure</option>
       <option value="median_contract_rent">Median Contract Rent</option>
       <option value="median_value">Median House Value</option>
       <option value="median_income">Median Household Income Total</option>
     </select>
-  </div>  
-  
+  </div>
   <script src="/html5slider.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script type="text/javascript" src="santacruz.js"></script>
-  
-           <!--Body is center aligned. Fixing. -->
+
+
+          <!--Body is center aligned. Fixing. -->
     <div id="subinfo" align="left" style='clear: left;'>
         <!-- Submission Info -->
-        <h4>Created by Ryan Teves, Ky Nguyen, Karol-Josef Bustamante, Meli Jimenez</h4>
-        <h4>in collaboration with Suresh K Lodha, Ryan Brounley, and Shobhit Maheshwari. </h4>
+        <h4>Created by Christian Ortiz, Richa Kulkarni, Ismael Lopez, Amita Sinha </h4>
+        <h4>in collaboration with Suresh K Lodha, Ryan Brounley, and Karthik Thota. </h4>
 
-        <h4>Description: </h4>
+        <h4>Description: This visualization provides a side-by-side comparison of Chicago and New York City. There are several variables used to compare the two such as: population, income, life expectancy, and crime. A slider tool provides a direct comparison between areas in Chicago and New York City for a selected range for each metric.</h4>
     </div>
     <div align="left" style='clear: left;'>
     <div style="float:left;">
         <ul>
             <h4>Files Submitted:</h4>
             <li>index.html</li>
-            <li>santacruz.js</li>
-            <li>santacruz.css</li>
-          <li>sc_housingUnit.json</li>
-          <li>sc_tenure_total.json</li>
-          <li>sc_median_contract_rent.json</li>
-          <li>sc_median_value.json</li>
-          <li>sc_median_income.json</li>
-          </ul>
+            <li>NYCmap.js</li>
+            <li>NYCmap.css</li>
+            <li>NYData.json</li>
+            <li>ChicagoData.json</li>
+            <li>nouislider.min.css</li>
+            <li>nouislider.min.js</li>
+            <li>wNumb.js</li>
+        </ul>
     </div>
+
     <div style="float:left;">
         <ul>
-            <h4>Data and Code Sources:</h4>
-            <a href="https://github.com/sureshlodha/Projects_Spring16/tree/master/projects/NYvsChicago">NY vs Chicago Source</a><br>
-            <a href="https://bl.ocks.org/mbostock/5562380">California Density by Mike Bostock</a><br>
-            <a href="https://data2.nhgis.org/main#">Data for years 2009 to 2013</a><br>
-            <a href="http://factfinder.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t">Data fro years 2013 and 2014</a><br>
+            <h4>Code Sources:</h4>
+            <a href="https://github.com/ryanbrounley/d3.js_projects">SF vs LA Source</a><br>
+            <a href="http://blog.civicdashboards.com/2014/02/nyc-crime-map/">NYC Crime</a><br>
+            <a href="https://www1.nyc.gov/site/doh/data/data-publications/profiles.page">NYC Life Expectancy</a><br>
+            <a href="https://data.cityofnewyork.us/City-Government/New-York-City-Population-By-Community-Districts/xi7c-iiu2">NYC Population</a><br>
+            <a href="https://data.cityofnewyork.us/City-Government/Demographics-and-profiles-at-the-Public-Use-Microd/7q5y-m6mr">NYC Per Capita Income</a><br>
+            <a href="http://robparal.blogspot.com/2012/05/hard-to-find-census-data-on-chicago.html">Chicago Population</a><br>
+            <a href="https://www.google.com/fusiontables/DataSource?docid=1q7mUZIkHyg3ZICAqYWpu93qGsqYETJA1h3qZjKE">Chicago Crime</a><br>
+            <a href="https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2">Chicago Per Capita Income</a><br>
+            <a href="https://data.cityofchicago.org/Health-Human-Services/Public-Health-Statistics-Life-Expectancy-By-Commun/qjr3-bm53">Chicago Life Expectancy</a><br>
         </ul>
     </div>
     <div style="float:left;">
@@ -76,8 +80,8 @@
             <a href="http://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page">New York Map Source</a>
         </ul>
 
-    </div>    
-    </div>        
+    </div>
+  </div>
 </body>
     
 <br>

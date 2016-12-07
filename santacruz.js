@@ -113,8 +113,8 @@ function refresh() {
   }
   
   //***Uncomment or Comment to see bug**//  
-  g = svg.append("g")
-       .attr("class", "key");
+  // g = svg.append("g")
+  //      .attr("class", "key");
   //************************************//
 
 
