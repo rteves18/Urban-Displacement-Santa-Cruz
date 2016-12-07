@@ -309,7 +309,7 @@ function AppendLegend(cScale, brewSet, textArray,cssClass,opacity){
                     return "Median House Value (USD)";
                     break;
                 case "ictlegend":
-                    return "Median Income (USD)";
+                    return "Median Household Income (USD)";
                     break;
             }
         })
