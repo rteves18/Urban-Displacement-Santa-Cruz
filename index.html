@@ -5,18 +5,21 @@
   <script src="//d3js.org/d3.v3.min.js"></script>
   <script src="//d3js.org/topojson.v1.min.js"></script>
   <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+
 </head>
 
 <body>
-  <h2> Santa Cruz County Population Density Map</h2>
-  <div>
-      <input id="slider" type="range" min="2010" max="2014" value="2010" step="1" style="top: 0px;
-"/>
+
+  <h1 class="yo"> Urban Displacement in Santa Cruz County</h1>
+  <p class="by"> Observing from year 2010 to 2014 
+  </p>
+  <div class="bar">
+      <input id="slider" class="bar" type="range" min="2010" max="2014" value="2010" step="1" style="top: 0px;"/>
       <span id="range">2010</span>
       <button name="play" id="play">Play</button>    
-  </div>
+</div>
     
-  <div>
+  <div class="list">
     <select id="myList">
       <option value="housing_unit">Total Housing Unit</option>
       <option value="tenure">Total Tenure</option>
@@ -26,8 +29,57 @@
     </select>
   </div>
   <script src="/html5slider.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script type="text/javascript" src="santacruz.js"></script>        
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/javascript" src="santacruz.js"></script>
+
+  <!--Body is center aligned. Fixing. -->
+    <div id="subinfo" align="left" style='clear: left;'>
+        <!-- Submission Info -->
+        <p>Created by Ryan Teves, Ky Nguyen, Karol-Josef Bustamante, and Meli Jemenez </p>
+        <p>in collaboration with Suresh K Lodha, Ryan Brounley, and Karthik Thota. </p>
+
+        <h4>Description: This visualization provides a side-by-side comparison of Chicago and New York City. There are several variables used to compare the two such as: population, income, life expectancy, and crime. A slider tool provides a direct comparison between areas in Chicago and New York City for a selected range for each metric.</h4>
+    </div>
+    <div align="left" style='clear: left;'>
+    <div style="float:left;">
+        <ul>
+            <h4>Files Submitted:</h4>
+            <li>index.html</li>
+            <li>NYCmap.js</li>
+            <li>NYCmap.css</li>
+            <li>NYData.json</li>
+            <li>ChicagoData.json</li>
+            <li>nouislider.min.css</li>
+            <li>nouislider.min.js</li>
+            <li>wNumb.js</li>
+        </ul>
+    </div>
+    <div style="float:left;">
+        <ul>
+            <h4>Code Sources:</h4>
+            <a href="https://github.com/ryanbrounley/d3.js_projects">SF vs LA Source</a><br>
+            <a href="http://blog.civicdashboards.com/2014/02/nyc-crime-map/">NYC Crime</a><br>
+            <a href="https://www1.nyc.gov/site/doh/data/data-publications/profiles.page">NYC Life Expectancy</a><br>
+            <a href="https://data.cityofnewyork.us/City-Government/New-York-City-Population-By-Community-Districts/xi7c-iiu2">NYC Population</a><br>
+            <a href="https://data.cityofnewyork.us/City-Government/Demographics-and-profiles-at-the-Public-Use-Microd/7q5y-m6mr">NYC Per Capita Income</a><br>
+            <a href="http://robparal.blogspot.com/2012/05/hard-to-find-census-data-on-chicago.html">Chicago Population</a><br>
+            <a href="https://www.google.com/fusiontables/DataSource?docid=1q7mUZIkHyg3ZICAqYWpu93qGsqYETJA1h3qZjKE">Chicago Crime</a><br>
+            <a href="https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2">Chicago Per Capita Income</a><br>
+            <a href="https://data.cityofchicago.org/Health-Human-Services/Public-Health-Statistics-Life-Expectancy-By-Commun/qjr3-bm53">Chicago Life Expectancy</a><br>
+        </ul>
+    </div>
+    <div style="float:left;">
+        <ul>
+            <h4> Visualization Sources:</h4>
+            Tooltip inspirations: <a href="http://bl.ocks.org/d3noob/a22c42db65eb00d4e369">1</a> <a href="http://bl.ocks.org/biovisualize/1016860">2</a><br/>
+            Legend inspirations: <a href="http://bl.ocks.org/emeeks/8855733967174fe4b1b4">1</a> <a href="https://github.com/ryanbrounley/d3.js_projects/tree/master/LAvsSF">2</a><br/>
+            <a href="http://sureshlodha.github.io/SFvsLA/">San Francisco vs. LA</a><br/>
+            <a href="https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Community-Areas-current-/cauq-8yn6">Chicago Map Source</a><br/>
+            <a href="http://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page">New York Map Source</a>
+        </ul>
+
+    </div>    
+    </div>       
 </body>
     
 <br>
