@@ -8,24 +8,12 @@ var toolTipLabel;
 var legendText;
 var properties_year;
 var current_data = [];
+var current_json_file = 0;
 var year = "2010";
-var json_test = ['sc_housingUnit.json'];
+var json_files = ['sc_housingUnit.json','sc_tenure_total.json','sc_median_contract_rent.json',
+                  'sc_median_value.json','sc_median_income.json'];
 var fieldtest = ['ten','eleven','twelve','thirteen','fourteen'];
 var counter = 0;
-var housing_unit = ['sc_housingunit09.json', 'sc_housingunit10.json', 'sc_housingunit11.json', 
-                 'sc_housingunit12.json', 'sc_housingunit13.json', 'sc_housingunit14.json'];
-
-var tenure = ['sc_tenure09.json', 'sc_tenure10.json', 'sc_tenure11.json', 
-              'sc_tenure12.json', 'sc_tenure13.json', 'sc_tenure14.json'];
-
-var median_contract_rent = ['sc_MedianContractRent09.json', 'sc_MedianContractRent10.json',
-                            'sc_MedianContractRent11.json', 'sc_MedianContractRent12.json', 'sc_MedianContractRent13.json', 'sc_MedianContractRent14.json'];
-
-var median_value = ['sc_MedianValue09.json', 'sc_MedianValue10.json', 'sc_MedianValue11.json', 'sc_MedianValue12.json', 'sc_MedianValue13.json', 'sc_MedianValue14.json'];
-
-var median_income = ['sc_MedianIncome09.json', 'sc_MedianIncome10.json', 'sc_MedianIncome11.json',
-                    'sc_MedianIncome12.json', 'sc_MedianIncome13.json', 'sc_MedianIncome14.json']
-
 
 var jsonArrayCounter = 10;
 var running = false;
@@ -119,14 +107,14 @@ refresh(); //refresh map
 //Refresh Geomap function    
 function refresh() {
     
- if (firstLoad) {
+  if (firstLoad) {
     legendText = "Housing Unit";
     firstLoad = false;
-    current_data = housing_unit;
- } else {
+    current_data = json_files[0]; // was housing_unit before
+  } else {
     g.selectAll("*")
        .remove();
- }
+  }
     
   g = svg.append("g")
     .attr("class", "key")
@@ -150,7 +138,8 @@ function refresh() {
     .attr("y", -6)
     .text(legendText);
 
-  d3.json(json_test[0], function(error, sc){
+  // Loads the json files to render map
+  d3.json(json_files[current_json_file], function(error, sc){
     
     if (error) throw error;
     var tracts = topojson.feature(sc, sc.objects.sctracts);
@@ -307,37 +296,43 @@ var year_data;
 
 d3.select(self.frameElement).style("height", height + "px");
 
+/*===========================Drop Down Menu===========================*/
 document.getElementById("myList").onchange = function() {
-   jsonArrayCounter=10;
-   current_value_dropdown=this.value;
-   if (this.value == "housing_unit") {
-      current_data = housing_unit;
-      color = orange_color;
-      legendText = "Housing Unit";
-      refresh();
-   } else if (this.value == "median_contract_rent") {
-      current_data = median_contract_rent;
-      color = red_color;
-      legendText = "Median Contract Rent (USD)";
-      refresh();       
-   } else if (this.value == "median_value") {
-      current_data = median_value;
-      color = yellow_color;
-      legendText = "Median Value (USD)";
-      refresh();            
-   } else if (this.value == "median_income") {
-      current_data = median_income;
-      color = purple_color;
-      legendText = "Median Income (USD)";
-      refresh();       
-   } else if (this.value == "tenure") {
-      current_data = tenure;
-      color = green_color;
-      legendText = "Tenure (Years)";
-      refresh();       
-   } else {
-       alert("Error: option data unavailable");
-   }
+  jsonArrayCounter=10;
+  current_value_dropdown=this.value;
+  if (this.value == "housing_unit") {
+    //current_data = json_files[0];
+    current_json_file = 0;
+    color = orange_color;
+    legendText = "Housing Unit";
+    refresh();
+  } else if (this.value == "median_contract_rent") {
+    //current_data = json_files[2];
+    current_json_file = 2;
+    color = red_color;
+    legendText = "Median Contract Rent (USD)";
+    refresh();       
+  } else if (this.value == "median_value") {
+    //current_data = json_files[3];
+    current_json_file = 3;
+    color = yellow_color;
+    legendText = "Median Value (USD)";
+    refresh();            
+  } else if (this.value == "median_income") {
+    //current_data = json_files[4];
+    current_json_file = 4;
+    color = purple_color;
+    legendText = "Median Income (USD)";
+    refresh();       
+  } else if (this.value == "tenure") {
+    //current_data = json_files[1];
+    current_json_file = 1;
+    color = green_color;
+    legendText = "Tenure (Years)";
+    refresh();       
+  } else {
+     alert("Error: option data unavailable");
+  }
 };
 
 
