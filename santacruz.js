@@ -131,7 +131,7 @@ function refresh() {
      .attr("fill-opacity", 1)
      .attr("height", 8)
      .attr("x", function(d) { return d.x0; })
-     .attr("width", function(d) { console.log(d.x1-d.x0);  if(Math.abs(d.x1-d.x0) > 480) return d.hope; else return Math.abs(d.x1-d.x0); })
+     .attr("width", function(d) { return d.x1-d.x0; })
      .style("fill", function(d) { return d.z; });
      g.call(xAxis).append("text")
      .attr("class", "caption")
