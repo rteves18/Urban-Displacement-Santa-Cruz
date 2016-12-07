@@ -106,10 +106,11 @@ function refresh() {
     cssLegend = "hoslegend";
     select_colors=orange_color;  
     ShowLegendHRVIT(1,0,0,0);
-  } else {
-    g.selectAll("*")
-       .remove();
-  }
+  } 
+  // else {
+  //   g.selectAll("*")
+  //      .remove();
+  // }
     
   // g = svg.append("g")
   //   .attr("class", "key")
@@ -253,7 +254,7 @@ function AppendLegend(cScale, brewSet, textArray,cssClass,opacity){
         .enter()
         .append("g")
         .attr("transform", "translate(-550,40)")
-        .attr("class", "key")
+        .attr("class", cssClass)
         .attr("opacity",opacity)
         .append("rect")//55*i
         //sets the location and width of each colored rectangles and adds the iteratively
