@@ -14,6 +14,14 @@ h2.by{
   font-family: 'Open sans', sans-serif; 
 }
 
+h4{
+  font-weight: 300; 
+  padding-left: 40px;
+  font-size: 15px;
+  line-height: 120%; 
+  font-family: 'Open sans', sans-serif; 
+}
+
 svg {
   font: 10px sans-serif;
 }
