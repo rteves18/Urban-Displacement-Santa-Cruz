@@ -5,6 +5,7 @@ var firstLoad = true;
 var current_value_dropdown = "housing_unit";
 var toolTipLabel;
 var tracts;
+var hostnr = true;
 // Loading Up the Data
 var legendText;
 var county;
@@ -104,9 +105,8 @@ function refresh() {
     firstLoad = false;
     cssLegend = "hoslegend";
     select_colors=orange_color;  
-    ShowLegendHRVIT(1,0,0,0);
-    AppendLegend(orange_color,hos,hosText,"hoslegend",1);
-  } 
+    ShowLegendHRVIT(0,0,0,0);
+    } 
   else {
     g.selectAll("*")
        .remove();
@@ -119,31 +119,34 @@ function refresh() {
 
 
   //***OLD LEGEND***
-  // g = svg.append("g")
-  //   .attr("class", "key")
-  //   .attr("transform", "translate(440,40)");
+  if(hostnr){
+    hostnr = false;
+   g = svg.append("g")
+     .attr("class", "key")
+     .attr("transform", "translate(440,40)");
 
-  // g.selectAll("rect")
-  //   .data(color.range().map(function(d, i) {
+   g.selectAll("rect")
+     .data(color.range().map(function(d, i) {
 
-  //     return {
-  //       x0: i ? x(color.domain()[i - 1]) : x.range()[0],
-  //       x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
-  //       z: d
-  //     };
-  // }))
-  // .enter().append("rect")
-  //   .attr("fill-opacity", 0)
-  //   .transition().duration(1000)
-  //   .attr("fill-opacity", 1)
-  //   .attr("height", 8)
-  //   .attr("x", function(d) { return d.x0; })
-  //   .attr("width", function(d) { console.log(d.x1-d.x0);  if(Math.abs(d.x1-d.x0) > 480) return d.hope; else return Math.abs(d.x1-d.x0); })
-  //   .style("fill", function(d) { return d.z; });
-  //   g.call(xAxis).append("text")
-  //   .attr("class", "caption")
-  //   .attr("y", -6)
-  //   .text(legendText);
+       return {
+         x0: i ? x(color.domain()[i - 1]) : x.range()[0],
+         x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
+         z: d
+       };
+   }))
+   .enter().append("rect")
+     .attr("fill-opacity", 0)
+     .transition().duration(1000)
+     .attr("fill-opacity", 1)
+     .attr("height", 8)
+     .attr("x", function(d) { return d.x0; })
+     .attr("width", function(d) { console.log(d.x1-d.x0);  if(Math.abs(d.x1-d.x0) > 480) return d.hope; else return Math.abs(d.x1-d.x0); })
+     .style("fill", function(d) { return d.z; });
+     g.call(xAxis).append("text")
+     .attr("class", "caption")
+     .attr("y", -6)
+     .text(legendText);
+  }
 
 
   // Loads the json files to render map
@@ -387,15 +390,9 @@ function getToolTipLabel(d) {
   }
 
 
-  var finalLabel = "<strong><div style='text-align:center;'>" +  
-                 legendText
-              + "</div></strong></br>"
-              //
-              + "<table><tr><th>Year</th><th>Total</th></tr>"
-              + "<tr>" + "<tr><th>"
-              +this.year
-              +"</th><th><font color ='" + label_color + "'>" + sign 
-              + year_data;
+ var finalLabel = "<center><b>"+legendText+"</b></center><br/>"
+                        +"<b>Year</b><hideText>___di___</hideText>:"+this.year+"<br/>"
+                        +"<b>Total</b><hideText>_____L ii</hideText>:<font color='" + label_color + "'>"+sign+year_data+"<br/>";
 
   return finalLabel;
 }
@@ -412,7 +409,8 @@ document.getElementById("myList").onchange = function() {
     legendText = "Housing Unit";
     sign = "";
     label_color= "#2756a3";
-    ShowLegendHRVIT(1,0,0,0,0);
+    ShowLegendHRVIT(0,0,0,0,0);
+    hostnr = true;
     refresh();
   } else if (this.value == "median_contract_rent") {
     current_json_file = 2;
@@ -421,6 +419,7 @@ document.getElementById("myList").onchange = function() {
     sign = "$";
     label_color = "#006837";
     ShowLegendHRVIT(0,1,0,0,0);
+    hostnr = false;
     refresh();       
   } else if (this.value == "median_value") {
     current_json_file = 3;
@@ -429,6 +428,7 @@ document.getElementById("myList").onchange = function() {
     sign = "$";
     label_color = "#006837";
     ShowLegendHRVIT(0,0,1,0,0);
+    hostnr = false;
     refresh();            
   } else if (this.value == "median_income") {
     current_json_file = 4;
@@ -437,6 +437,7 @@ document.getElementById("myList").onchange = function() {
     sign = "$";
     label_color = "#006837";
     ShowLegendHRVIT(0,0,0,1,0);
+    hostnr = false;
     refresh();       
   } else if (this.value == "tenure") {
     current_json_file = 1;
@@ -444,7 +445,8 @@ document.getElementById("myList").onchange = function() {
     legendText = "Tenure";
     sign = "";
     label_color = "#2756a3";
-    ShowLegendHRVIT(0,0,0,0,1);
+    ShowLegendHRVIT(0,0,0,0,0);
+    hostnr = true;
     refresh();       
   } else {
     alert("Error: option data unavailable");

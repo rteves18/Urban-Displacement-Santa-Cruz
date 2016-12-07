@@ -1,3 +1,13 @@
+h1.title{
+  font-weight: 300; 
+  font-size: 38px;
+  text-align: center;
+  line-height: 120%; 
+  font-family: 'Open sans', sans-serif; }
+}
+
+
+
 svg {
   font: 10px sans-serif;
 }
@@ -31,6 +41,31 @@ input{
   border: 0px;      
   border-radius: 8px;
   pointer-events: none;         
+}
+
+hideText{
+  visibility: hidden;
+}
+div.bar{
+  position: relative;
+  left: 220px;
+  top: 700px;
+}
+
+div.year{
+  position: relative;
+  bottom: 5px;
+  left:50px;
+  font-weight: 300; 
+  font-size: 20px;
+  line-height: 120%; 
+  font-family: 'Open sans', sans-serif; }
+}
+
+select.list{
+  position: relative;
+  left: 10px;
+  top: 678px;
 }
 
 
