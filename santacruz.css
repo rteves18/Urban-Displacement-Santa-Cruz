@@ -46,6 +46,13 @@ input{
 hideText{
   visibility: hidden;
 }
+
+select.list{
+  position: relative;
+  left: 10px;
+  top: 678px;
+}
+
 div.bar{
   position: relative;
   left: 220px;
@@ -60,12 +67,6 @@ div.year{
   font-size: 20px;
   line-height: 120%; 
   font-family: 'Open sans', sans-serif; }
-}
-
-select.list{
-  position: relative;
-  left: 10px;
-  top: 678px;
 }
 
 
