@@ -1,4 +1,5 @@
 //Toggle color and boundary variables
+//help from https://github.com/ryanbrounley/LAvsSF
 var changeColor = false;
 var showBoundary = true;
 var firstLoad = true;
@@ -105,20 +106,10 @@ function refresh() {
     firstLoad = false;
     cssLegend = "hoslegend";
     select_colors=orange_color;  
-    ShowLegendHRVIT(0,0,0,0);
-    } 
-  else {
-    g.selectAll("*")
-       .remove();
-  }
-  
-  //***Uncomment or Comment to see bug**//  
-  // g = svg.append("g")
-  //      .attr("class", "key");
-  //************************************//
 
+    //ShowLegendHRVIT(0,0,0,0);
+  } 
 
-  //***OLD LEGEND***
   if(hostnr){
     hostnr = false;
    g = svg.append("g")
@@ -149,6 +140,7 @@ function refresh() {
   }
 
 
+
   // Loads the json files to render map
   d3.json(json_files[current_json_file], function(error, sc){
     this.county = sc;
@@ -165,10 +157,11 @@ function refresh() {
     // Individual tracts for tool tip.
     
     // Group tracts by color for faster rendering.
-      svg.append("g")
+    var obj = svg.append("g")
         .attr("class", "tract")
-        .attr("clip-path", "url(#clip-land)")
-      .selectAll("path")
+        .attr("clip-path", "url(#clip-land)");
+      
+      obj.selectAll("path")
         .data(d3.nest()
           .key(function(d) {
             if (jsonArrayCounter == 10) {
@@ -218,8 +211,61 @@ function refresh() {
           }))             
         )
       .enter().append("path")
+        .attr("fill-opacity", 0)
+        .transition().duration(500)
+        .attr("fill-opacity", 1)
         .style("fill", function(d) { return valuesMap[d.key]; })
-        .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); })
+        .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); });
+
+        obj.selectAll("path")
+        .data(d3.nest()
+          .key(function(d) {
+            if (jsonArrayCounter == 10) {
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.ten]=color(d.properties.ten);
+              } else {
+                this.valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+              }
+              this.current_data_year=d.properties.ten;
+              return d.properties.ten; 
+            } else if (jsonArrayCounter == 11) {
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.eleven]=color(d.properties.eleven);
+              } else {
+                this.valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
+              }
+              this.current_data_year=d.properties.eleven;
+              return d.properties.eleven; 
+            } else if (jsonArrayCounter == 12) {
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.twelve]=color(d.properties.twelve);
+              } else {
+                this.valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
+              }
+              this.current_data_year=d.properties.twelve;
+              return d.properties.twelve; 
+            } else if (jsonArrayCounter == 13) {
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen);
+              } else {
+                this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
+              }
+              this.current_data_year=d.properties.thirteen;
+              return d.properties.thirteen; 
+            } else if (jsonArrayCounter == 14) {
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen);
+              } else {
+                this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
+              }
+              this.current_data_year=d.properties.fourteen;
+              return d.properties.fourteen; 
+            } 
+          })
+          .entries(tracts.features.filter(function(d) {
+            return d.properties.area; 
+          }))             
+        )
         .on("mouseover", function(d){
             toolTipLabel = getToolTipLabel(d);
             var totalPopulationInGroup = 0;
@@ -342,6 +388,18 @@ function AppendLegend(cScale, brewSet, textArray,cssClass,opacity){
 }
 
 function ShowLegendHRVIT(hu,rt,vl,ic,tn){
+    var obj = 
+      svg.append("g")
+        .attr("class", "tract")
+        .attr("clip-path", "url(#clip-land)");
+    if (typeof(Worker) !== "undefined") {
+      if (this.county != null) {
+        var durationTract = 1000;
+        updateTractColorAndBorders(this.county , obj, durationTract)
+      }
+    } else {
+        // Sorry! No Web Worker support..
+    }
     d3.selectAll(".hoslegend")
         .transition(1000)
         .style("opacity",hu);
@@ -505,47 +563,8 @@ $("#slider").on("change", function(){
     $("button").html("Play");
 });
 
-function first_Load(){
-    
-}
-	
-update = function() {
-
-    this.jsonArrayCounter++;
-    if (jsonArrayCounter == 14) {
-        $("button").html("Play");    
-        clearInterval(timer);
-        running = false;
-    } else if (jsonArrayCounter > 14) {
-        jsonArrayCounter=10;        
-    }
-    
-
-    switch ($("#slider").val()) {
-        case "2010":
-            this.year = "2010";
-            break;
-        case "2011":
-            this.year = "2011";
-            break;
-        case "2012":
-            this.year = "2012";
-            break;
-        case "2013":
-            this.year = "2013";
-            break;
-        case "2014":
-            this.year = "2014";
-            break;
-    }
-
-    var sc = this.county;
-    // Group tracts by color for faster rendering.
-    var obj = 
-      svg.append("g")
-        .attr("class", "tract")
-        .attr("clip-path", "url(#clip-land)");
-
+function updateTractColorAndBorders(sc , obj, durationTract){
+  var tracts = topojson.feature(sc, sc.objects.sctracts);
       obj.selectAll("path")
         .data(d3.nest()
           .key(function(d) {
@@ -597,7 +616,7 @@ update = function() {
         )
       .enter().append("path")
         .attr("fill-opacity", 0)
-        .transition().duration(3000)
+        .transition().duration(durationTract)
         .attr("fill-opacity", 1)
         .style("fill", function(d) { return valuesMap[d.key]; })
         .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); })
@@ -647,4 +666,44 @@ update = function() {
         .attr("class", "county-border")
         .attr("d", path);
     }
+}
+	
+update = function() {
+
+    this.jsonArrayCounter++;
+    if (jsonArrayCounter == 14) {
+        $("button").html("Play");    
+        clearInterval(timer);
+        running = false;
+    } else if (jsonArrayCounter > 14) {
+        jsonArrayCounter=10;        
+    }
+    
+
+    switch ($("#slider").val()) {
+        case "2010":
+            this.year = "2010";
+            break;
+        case "2011":
+            this.year = "2011";
+            break;
+        case "2012":
+            this.year = "2012";
+            break;
+        case "2013":
+            this.year = "2013";
+            break;
+        case "2014":
+            this.year = "2014";
+            break;
+    }
+
+    // Group tracts by color for faster rendering.
+    var obj = 
+      svg.append("g")
+        .attr("class", "tract")
+        .attr("clip-path", "url(#clip-land)");
+
+    updateTractColorAndBorders(this.county , obj, 3000);
+
 };
