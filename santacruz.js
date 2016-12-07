@@ -102,7 +102,7 @@ refresh(); //refresh map
 //Refresh Geomap function    
 function refresh() {
   if (firstLoad) {
-    legendText = "Housing Unit";
+    legendText = "Housing Unit Total per Mile";
     firstLoad = false;
     cssLegend = "hoslegend";
     select_colors=orange_color;  
@@ -464,7 +464,7 @@ document.getElementById("myList").onchange = function() {
   if (this.value == "housing_unit") {
     current_json_file = 0;
     color = orange_color;
-    legendText = "Housing Unit";
+    legendText = "Housing Unit Total per Mile";
     sign = "";
     label_color= "#2756a3";
     ShowLegendHRVIT(0,0,0,0,0);
@@ -504,7 +504,7 @@ document.getElementById("myList").onchange = function() {
   } else if (this.value == "tenure") {
     current_json_file = 1;
     color = green_color;
-    legendText = "Tenure";
+    legendText = "Tenure Total per Mile";
     sign = "";
     label_color = "#2756a3";
     ShowLegendHRVIT(0,0,0,0,0);
