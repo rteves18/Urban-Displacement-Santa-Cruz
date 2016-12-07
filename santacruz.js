@@ -1,4 +1,5 @@
 //Toggle color and boundary variables
+//help from https://github.com/ryanbrounley/LAvsSF
 var changeColor = false;
 var showBoundary = true;
 var firstLoad = true;
@@ -104,13 +105,8 @@ function refresh() {
     firstLoad = false;
     cssLegend = "hoslegend";
     select_colors=orange_color;  
-    ShowLegendHRVIT(1,0,0,0);
-    AppendLegend(orange_color,hos,hosText,"hoslegend",1);
+    //ShowLegendHRVIT(0,0,0,0);
   } 
-  else {
-    g.selectAll("*")
-       .remove();
-  }
   
   //***Uncomment or Comment to see bug**//  
   /*g = svg.append("g")
@@ -119,31 +115,31 @@ function refresh() {
 
 
   //***OLD LEGEND***
-  // g = svg.append("g")
-  //   .attr("class", "key")
-  //   .attr("transform", "translate(440,40)");
+  g = svg.append("g")
+    .attr("class", "key")
+    .attr("transform", "translate(440,40)");
 
-  // g.selectAll("rect")
-  //   .data(color.range().map(function(d, i) {
+  g.selectAll("rect")
+    .data(color.range().map(function(d, i) {
 
-  //     return {
-  //       x0: i ? x(color.domain()[i - 1]) : x.range()[0],
-  //       x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
-  //       z: d
-  //     };
-  // }))
-  // .enter().append("rect")
-  //   .attr("fill-opacity", 0)
-  //   .transition().duration(1000)
-  //   .attr("fill-opacity", 1)
-  //   .attr("height", 8)
-  //   .attr("x", function(d) { return d.x0; })
-  //   .attr("width", function(d) { console.log(d.x1-d.x0);  if(Math.abs(d.x1-d.x0) > 480) return d.hope; else return Math.abs(d.x1-d.x0); })
-  //   .style("fill", function(d) { return d.z; });
-  //   g.call(xAxis).append("text")
-  //   .attr("class", "caption")
-  //   .attr("y", -6)
-  //   .text(legendText);
+      return {
+        x0: i ? x(color.domain()[i - 1]) : x.range()[0],
+        x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
+        z: d
+      };
+  }))
+  .enter().append("rect")
+    .attr("fill-opacity", 0)
+    .transition().duration(1000)
+    .attr("fill-opacity", 1)
+    .attr("height", 8)
+    .attr("x", function(d) { return d.x0; })
+    .attr("width", function(d) { console.log(d.x1-d.x0);  if(Math.abs(d.x1-d.x0) > 480) return d.hope; else return Math.abs(d.x1-d.x0); })
+    .style("fill", function(d) { return d.z; });
+    g.call(xAxis).append("text")
+    .attr("class", "caption")
+    .attr("y", -6)
+    .text(legendText);
 
 
   // Loads the json files to render map
@@ -162,10 +158,11 @@ function refresh() {
     // Individual tracts for tool tip.
     
     // Group tracts by color for faster rendering.
-      svg.append("g")
+    var obj = svg.append("g")
         .attr("class", "tract")
-        .attr("clip-path", "url(#clip-land)")
-      .selectAll("path")
+        .attr("clip-path", "url(#clip-land)");
+      
+      obj.selectAll("path")
         .data(d3.nest()
           .key(function(d) {
             if (jsonArrayCounter == 10) {
@@ -215,8 +212,61 @@ function refresh() {
           }))             
         )
       .enter().append("path")
+        .attr("fill-opacity", 0)
+        .transition().duration(500)
+        .attr("fill-opacity", 1)
         .style("fill", function(d) { return valuesMap[d.key]; })
-        .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); })
+        .attr("d", function(d) { return path({type: "FeatureCollection", features: d.values}); });
+
+        obj.selectAll("path")
+        .data(d3.nest()
+          .key(function(d) {
+            if (jsonArrayCounter == 10) {
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.ten]=color(d.properties.ten);
+              } else {
+                this.valuesMap[d.properties.ten]=color(d.properties.ten / d.properties.area * 2.58999e6);
+              }
+              this.current_data_year=d.properties.ten;
+              return d.properties.ten; 
+            } else if (jsonArrayCounter == 11) {
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.eleven]=color(d.properties.eleven);
+              } else {
+                this.valuesMap[d.properties.eleven]=color(d.properties.eleven / d.properties.area * 2.58999e6);
+              }
+              this.current_data_year=d.properties.eleven;
+              return d.properties.eleven; 
+            } else if (jsonArrayCounter == 12) {
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.twelve]=color(d.properties.twelve);
+              } else {
+                this.valuesMap[d.properties.twelve]=color(d.properties.twelve / d.properties.area * 2.58999e6);
+              }
+              this.current_data_year=d.properties.twelve;
+              return d.properties.twelve; 
+            } else if (jsonArrayCounter == 13) {
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen);
+              } else {
+                this.valuesMap[d.properties.thirteen]=color(d.properties.thirteen / d.properties.area * 2.58999e6);
+              }
+              this.current_data_year=d.properties.thirteen;
+              return d.properties.thirteen; 
+            } else if (jsonArrayCounter == 14) {
+              if (current_json_file == 2 || current_json_file == 3 || current_json_file == 4){
+                this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen);
+              } else {
+                this.valuesMap[d.properties.fourteen]=color(d.properties.fourteen / d.properties.area * 2.58999e6);
+              }
+              this.current_data_year=d.properties.fourteen;
+              return d.properties.fourteen; 
+            } 
+          })
+          .entries(tracts.features.filter(function(d) {
+            return d.properties.area; 
+          }))             
+        )
         .on("mouseover", function(d){
             toolTipLabel = getToolTipLabel(d);
             var totalPopulationInGroup = 0;
