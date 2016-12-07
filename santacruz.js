@@ -394,7 +394,7 @@ function ShowLegendHRVIT(hu,rt,vl,ic,tn){
         .attr("clip-path", "url(#clip-land)");
     if (typeof(Worker) !== "undefined") {
       if (this.county != null) {
-        var durationTract = 1000;
+        var durationTract = 500;
         updateTractColorAndBorders(this.county , obj, durationTract)
       }
     } else {
@@ -449,8 +449,8 @@ function getToolTipLabel(d) {
 
 
  var finalLabel = "<center><b>"+legendText+"</b></center><br/>"
-                        +"<b>Year</b><hideText>___di___</hideText>:"+this.year+"<br/>"
-                        +"<b>Total</b><hideText>_____L ii</hideText>:<font color='" + label_color + "'>"+sign+year_data+"<br/>";
+                        +"<b>Year</b><hideText>_____ </hideText>: "+this.year+"<br/>"
+                        +"<b>Total</b><hideText>____iii</hideText>:<font color='" + label_color + "'> "+sign+year_data+"<br/>";
 
   return finalLabel;
 }
