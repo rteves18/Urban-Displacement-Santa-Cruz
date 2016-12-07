@@ -1,3 +1,82 @@
+html {
+    overflow-x: hidden;
+}
+
+nav {
+    color: white !important;
+}
+
+.container-full {
+    margin: 0 auto;
+    width: 100%;
+}
+
+
+.county-border {
+    fill: none;
+    stroke: #000;
+    stroke-opacity: .3;
+}
+
+.map-container {
+    background-color: gray;
+    padding-top: 80px;
+    padding-left: 150px;
+    width: 100%;
+}
+
+.map-low-left {
+    position: absolute;
+    width: 300px;
+    margin-top: -100px;
+    margin-left: 50px;
+}
+
+.map-low-right {
+    position: absolute;
+    width: 300px;
+    margin-top: -100px;
+    margin-right: 50px;
+}
+
+.map-top-left {
+    position: absolute;
+    width: 300px;
+    top: 120px;
+    margin-left: 50px;
+}
+
+.map-dropdown {
+    position: absolute;
+    width: 300px;
+    top: 120px;
+    margin-left: 180px;
+}
+
+.expand-info {
+    text-align: center;
+    position: relative;
+    z-index: 9999;
+}
+
+.expand-info a {
+    font-size: 16px;
+    padding: 10px 50px;
+    margin: -130px 0 0 0;
+}
+
+.main-container {
+    padding-left: 20px;
+    padding-bottom: 50px;
+}
+
+.footer-wrapper {
+    height: 300px;
+    width: 100%;
+    background-color: #337AB7;
+    margin: 0;
+}
+
 svg {
   font: 10px sans-serif;
 }
@@ -11,11 +90,7 @@ svg {
   stroke: #000;
   shape-rendering: crispEdges;
 }
-.county-border {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: .3;
-}
+
 input{
   position:relative;
   top: 700px;
@@ -33,6 +108,9 @@ input{
   pointer-events: none;         
 }
 
+hideText{
+    visibility: hidden;
+}
 
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none !important;
