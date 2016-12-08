@@ -24,8 +24,18 @@ h4{
   font-family: 'Open sans', sans-serif; 
 }
 
+div.container{
+    display: flex;
+
+}
+
+div.row{
+  display: flex;
+}
+
 svg {
   font: 10px sans-serif;
+  margin-left: 200px;
 }
 .caption {
   font-weight: bold;
@@ -65,14 +75,14 @@ hideText{
 
 select.myList{
   position: relative;
-  left: 10px;
-  top: 678px;
+  left: 900px;
+  top: 150px;
 }
 
 div.bar{
   position: relative;
-  left: 220px;
-  top: 700px;
+  left: 900px;
+  top: 200px;
 }
 
 div.year{
