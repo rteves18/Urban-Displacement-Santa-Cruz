@@ -461,6 +461,7 @@ d3.select(self.frameElement).style("height", height + "px");
 document.getElementById("myList").onchange = function() {
   jsonArrayCounter=10;
   current_value_dropdown=this.value;
+  svg.select(".tract").remove(); 
   if (this.value == "housing_unit") {
     current_json_file = 0;
     color = orange_color;
